@@ -1,600 +1,467 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق مسابقة دينار - DINAR Quiz Tournament</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق مسابقة دينار - DINAR Quiz Tournament (500 DZD)</title>
+
+    <!-- Google Analytics (GA4) with Measurement ID: G-X6RYCMCFSF -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X6RYCMCFSF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-X6RYCMCFSF', {
+        'send_page_view': true,
+        'debug_mode': true,
+        'cookie_flags': 'max-age=7200;secure;samesite=none'
+      });
+    </script>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Cairo & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
+    <!-- FontAwesome & Lucide Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dinarGold: '#F59E0B',
+                        dinarEmerald: '#10B981',
+                        dinarDark: '#020617',
+                        dinarCard: '#0F172A'
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        * {
-            font-family: 'Cairo', 'Inter', sans-serif;
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
         }
 
-        /* Animated Glowing Gradients & Gold Effects */
+        /* Animated Floating Money Background Elements */
+        .money-float {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.15;
+            animation: floatAnim 12s infinite ease-in-out;
+            z-index: 0;
+        }
+        @keyframes floatAnim {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
         .gold-glow {
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.3);
         }
-        
-        .gold-glow-lg {
-            box-shadow: 0 0 50px rgba(245, 158, 11, 0.45);
-        }
-
         .emerald-glow {
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
-        }
-
-        .text-gold-gradient {
-            background: linear-gradient(135deg, #FFF5C0 0%, #F59E0B 50%, #D97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .text-emerald-gradient {
-            background: linear-gradient(135deg, #A7F3D0 0%, #10B981 50%, #047857 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .border-gold-shine {
-            border-image: linear-gradient(to bottom right, #FCD34D, #F59E0B, #78350F) 1;
-        }
-
-        /* Floating Money & Coin Keyframe Animations */
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(4deg); }
-        }
-
-        @keyframes floatFast {
-            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-            50% { transform: translateY(-18px) rotate(-6deg) scale(1.05); }
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.08); }
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        .animate-float-slow {
-            animation: floatSlow 5s ease-in-out infinite;
-        }
-
-        .animate-float-fast {
-            animation: floatFast 3.8s ease-in-out infinite;
-        }
-
-        .animate-pulse-glow {
-            animation: pulseGlow 3s ease-in-out infinite;
-        }
-
-        .shimmer-bg {
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 2.5s infinite;
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020617;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 9999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #f59e0b;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950 relative">
 
-    <!-- Background Ambient Glow Shapes -->
-    <div class="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
-    <div class="fixed bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="money-float top-10 right-10 text-6xl text-amber-400">🪙</div>
+        <div class="money-float top-1/3 left-12 text-7xl text-emerald-400" style="animation-delay: -3s;">💵</div>
+        <div class="money-float bottom-1/4 right-20 text-6xl text-amber-500" style="animation-delay: -6s;">🏆</div>
+        <div class="money-float bottom-10 left-1/4 text-5xl text-emerald-300" style="animation-delay: -9s;">💰</div>
+        <div class="absolute top-0 right-1/2 translate-x-1/2 w-[500px] h-[500px] bg-amber-500/10 blur-[150px] rounded-full"></div>
+    </div>
 
-    <!-- Top Bar Header -->
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-amber-500/20 px-4 py-3 shadow-2xl">
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-amber-500/20 px-4 py-3">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
-            
-            <!-- Brand Logo & Algeria Emblem -->
             <div class="flex items-center gap-3">
-                <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-400 to-emerald-500 p-0.5 gold-glow flex items-center justify-center">
-                    <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center font-black text-2xl">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-400 to-emerald-500 p-0.5 shadow-lg shadow-amber-500/20">
+                    <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center font-black text-amber-400 text-xl">
                         🇩🇿
                     </div>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-black text-2xl tracking-tight text-gold-gradient">
+                        <span class="font-black text-xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-emerald-400">
                             DINAR
                         </span>
-                        <span class="bg-amber-500/10 text-amber-400 text-[11px] px-2.5 py-0.5 rounded-full border border-amber-500/30 font-extrabold flex items-center gap-1">
-                            <i data-lucide="sparkles" class="w-3 h-3"></i> مسابقة مهارات
+                        <span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
+                            500 DA مسابقة مهارات
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-400 font-medium">منافسات سرعة البديهة والجوائز الأسبوعية</p>
+                    <p class="text-[11px] text-slate-400">منافسات سرعة البديهة والجوائز الأسبوعية الكبرى</p>
                 </div>
             </div>
 
-            <!-- Header Right Controls -->
             <div class="flex items-center gap-3">
-                <!-- Sound Toggle -->
-                <button id="soundToggleBtn" onclick="toggleSound()" class="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition-all border border-slate-700" title="تشغيل/إيقاف الصوت">
-                    <i id="soundIcon" data-lucide="volume-2" class="w-5 h-5 text-amber-400"></i>
+                <button onclick="toggleAudioSound()" id="soundToggleBtn" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 transition">
+                    <i data-lucide="volume-2" class="w-4 h-4"></i>
                 </button>
 
-                <!-- User Profile / Login Widget -->
-                <div id="userHeaderWidget">
-                    <!-- Dynamic rendering via JS -->
+                <div id="headerUserBadge" class="hidden flex items-center gap-2 bg-slate-950 border border-slate-800 p-1.5 pl-3 rounded-full">
+                    <div id="userAvatar" class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xs font-bold">
+                        U
+                    </div>
+                    <div class="text-right">
+                        <div id="headerUserName" class="text-xs font-bold text-slate-200 flex items-center gap-1">
+                            مشارك
+                        </div>
+                        <div id="headerUserScore" class="text-[10px] text-amber-400 font-mono">
+                            أعلى نتيجة: 0 ن
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+                <button id="authHeaderBtn" onclick="openAuthModal()" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-amber-500/20 transition transform hover:-translate-y-0.5">
+                    <i data-lucide="user-check" class="w-4 h-4"></i>
+                    تسجيل الحساب (CCP)
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content Area -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6 flex flex-col gap-6 z-10">
 
-        <!-- Subscription Alert Banner (Shows when logged in but unpaid) -->
-        <div id="unpaidBanner" class="hidden bg-gradient-to-r from-amber-950/90 via-amber-900/50 to-slate-900 border-2 border-amber-500/50 rounded-3xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 gold-glow">
-            <div class="flex items-center gap-4">
-                <div class="p-3.5 bg-amber-500/20 text-amber-400 rounded-2xl border border-amber-500/40 shrink-0">
-                    <i data-lucide="lock" class="w-7 h-7"></i>
+        <!-- Subscription Alert Banner -->
+        <div id="unpaidBanner" class="bg-gradient-to-r from-amber-950/90 via-amber-900/40 to-slate-900 border border-amber-500/40 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl gold-glow">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl border border-amber-500/30 shrink-0">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h3 class="font-black text-amber-300 text-base sm:text-lg">اشتراك المسابقة الأسبوعية غير مفعل (250 دج)</h3>
-                    <p class="text-xs sm:text-sm text-slate-300 mt-0.5 leading-relaxed">
-                        قم بتفعيل اشتراكك عبر رصيد BaridiMob لتأكيد حسابك الـ CCP ودخول المنافسة على الجوائز النقدية الرسمية!
-                    </p>
+                    <h3 class="font-bold text-amber-300 text-sm sm:text-base">تفعيل اشتراك الدورة الأسبوعية (500 دج)</h3>
+                    <p class="text-xs text-slate-300 mt-0.5">ادفع اشتراكك الرمزي بـ 500 دج عبر BaridiMob أو CCP ونافس فورياً على صدارة قائمة الجوائز الأسبوعية!</p>
                 </div>
             </div>
-            <button onclick="openPaymentModal()" class="w-full sm:w-auto shrink-0 bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-slate-950 font-black text-xs sm:text-sm px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5">
-                <i data-lucide="credit-card" class="w-5 h-5"></i>
-                تفعيل الاشتراك عبر BaridiMob
+            <button onclick="openPaymentModal()" class="w-full sm:w-auto shrink-0 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs px-5 py-3 rounded-xl shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition">
+                <i data-lucide="credit-card" class="w-4 h-4"></i>
+                تفعيل الاشتراك بـ 500 دج عبر Chargily
             </button>
         </div>
 
         <!-- Navigation Tabs -->
-        <div class="flex items-center gap-2 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 overflow-x-auto shadow-inner">
-            <button id="tabBtn-quiz" onclick="switchTab('quiz')" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20">
+        <div class="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800 overflow-x-auto">
+            <button onclick="switchTab('quiz')" id="tabBtnQuiz" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20">
                 <i data-lucide="zap" class="w-4 h-4"></i>
                 التحدي المباشر
             </button>
-            <button id="tabBtn-leaderboard" onclick="switchTab('leaderboard')" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60">
+            <button onclick="switchTab('leaderboard')" id="tabBtnLeaderboard" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition text-slate-400 hover:text-slate-200">
                 <i data-lucide="trophy" class="w-4 h-4"></i>
                 لوحة الصدارة
             </button>
-            <button id="tabBtn-prizes" onclick="switchTab('prizes')" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60">
+            <button onclick="switchTab('prizes')" id="tabBtnPrizes" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition text-slate-400 hover:text-slate-200">
                 <i data-lucide="award" class="w-4 h-4"></i>
-                توزيع الجوائز (75%)
-            </button>
-            <button id="tabBtn-rules" onclick="switchTab('rules')" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60">
-                <i data-lucide="shield-check" class="w-4 h-4"></i>
-                المصداقية والقوانين
+                وعاء الجوائز (75%)
             </button>
         </div>
 
-        <!-- TAB 1: QUIZ CHALLENGE -->
-        <div id="tabContent-quiz" class="flex flex-col gap-6">
-            
-            <!-- Idle State Hero Section -->
-            <div id="quizIdleState" class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-amber-500/30 rounded-3xl p-6 sm:p-12 text-center flex flex-col items-center shadow-2xl relative overflow-hidden">
-                
-                <!-- Floating Visual Gold Coins & Banknote Decorative Graphics -->
-                <div class="absolute top-6 left-6 pointer-events-none opacity-80 animate-float-slow hidden sm:block">
-                    <svg width="72" height="72" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="45" fill="url(#goldCoin1)" stroke="#F59E0B" stroke-width="4"/>
-                        <circle cx="50" cy="50" r="35" stroke="#FCD34D" stroke-width="2" stroke-dasharray="6 4"/>
-                        <text x="50" y="58" font-size="22" font-weight="900" fill="#78350F" text-anchor="middle">200 دج</text>
-                        <defs>
-                            <linearGradient id="goldCoin1" x1="0" y1="0" x2="100" y2="100">
-                                <stop offset="0%" stop-color="#FDE047"/>
-                                <stop offset="50%" stop-color="#F59E0B"/>
-                                <stop offset="100%" stop-color="#B45309"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+        <!-- TAB 1: QUIZ GAMEPLAY -->
+        <div id="tabContentQuiz" class="flex flex-col gap-6">
+            <!-- Idle Screen -->
+            <div id="quizIdleState" class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-10 text-center flex flex-col items-center shadow-2xl relative overflow-hidden">
+                <div class="w-20 h-20 rounded-3xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-6 shadow-inner gold-glow">
+                    <i data-lucide="flame" class="w-10 h-10 animate-pulse"></i>
                 </div>
 
-                <div class="absolute bottom-8 right-8 pointer-events-none opacity-80 animate-float-fast hidden sm:block">
-                    <svg width="90" height="60" viewBox="0 0 120 70" fill="none">
-                        <rect x="2" y="2" width="116" height="66" rx="10" fill="url(#dzdNote)" stroke="#10B981" stroke-width="3"/>
-                        <rect x="10" y="10" width="100" height="50" rx="6" stroke="#A7F3D0" stroke-width="1.5" stroke-dasharray="4 3"/>
-                        <circle cx="60" cy="35" r="16" fill="#047857" opacity="0.3"/>
-                        <text x="60" y="42" font-size="20" font-weight="900" fill="#ECFDF5" text-anchor="middle">2000 DA</text>
-                        <defs>
-                            <linearGradient id="dzdNote" x1="0" y1="0" x2="120" y2="70">
-                                <stop offset="0%" stop-color="#059669"/>
-                                <stop offset="50%" stop-color="#10B981"/>
-                                <stop offset="100%" stop-color="#064E3B"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-
-                <!-- Glowing Trophy Emblem -->
-                <div class="relative mb-6">
-                    <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-amber-500/20 via-amber-400/30 to-emerald-500/20 border-2 border-amber-500/40 flex items-center justify-center text-amber-400 gold-glow">
-                        <i data-lucide="trophy" class="w-12 h-12 text-amber-400 animate-pulse-glow"></i>
-                    </div>
-                    <span class="absolute -top-2 -right-2 bg-emerald-500 text-slate-950 font-black text-[10px] px-2.5 py-1 rounded-full shadow-lg border border-emerald-300">
-                        مضمونة 100%
-                    </span>
-                </div>
-
-                <h1 className="text-2xl sm:text-4xl font-black text-slate-100 mb-3 leading-tight max-w-2xl">
-                    مسابقة <span class="text-gold-gradient">DINAR</span> لألعاب المهارة والسرعة الوطنية 🇩🇿
+                <h1 class="text-2xl sm:text-4xl font-black text-slate-100 mb-3">
+                    تحدي سرعة البديهة والأسئلة الوطنية
                 </h1>
-                <p class="text-slate-300 text-sm sm:text-base max-w-xl mb-8 leading-relaxed">
-                    تنافس في الإجابة على الأسئلة العامة والدقيقة بـ <span class="text-amber-400 font-bold">أقصى سرعة ممكنة</span>! يتم تجميع <span class="text-emerald-400 font-bold">75% من اشتراكات الأسبوع</span> وتحويل الجوائز مباشرة إلى حسابك الـ <span class="text-amber-300 font-bold">CCP / RIP</span> عند نهاية الدورة الأسبوعية.
+                <p class="text-slate-400 text-sm sm:text-base max-w-xl mb-8 leading-relaxed">
+                    أجب على الأسئلة بأقصى سرعة ممكنة! الإجابة السريعة والدقيقة تمنحك نقاطاً مضاعفة. تتغير الأسئلة ديناميكياً في كل محاولة.
                 </p>
 
-                <!-- Platform Live Tournament Stats -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-3xl mb-8">
-                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center shadow-lg">
-                        <div class="text-slate-400 text-xs mb-1 font-semibold">اشتراك الدورة الأسبوعي</div>
-                        <div class="text-amber-400 font-black text-lg sm:text-xl font-mono">250 دج</div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl mb-8">
+                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center">
+                        <div class="text-slate-400 text-xs mb-1">الاشتراك الأسبوعي</div>
+                        <div class="text-amber-400 font-black text-lg">500 دج</div>
                     </div>
-                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center shadow-lg">
-                        <div class="text-slate-400 text-xs mb-1 font-semibold">المحاولات المتبقية اليوم</div>
-                        <div id="attemptsLeftDisplay" class="text-emerald-400 font-black text-lg sm:text-xl font-mono">3 من 3</div>
+                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center">
+                        <div class="text-slate-400 text-xs mb-1">المحاولات اليومية</div>
+                        <div id="attemptsDisplay" class="text-emerald-400 font-black text-lg">3 من 3</div>
                     </div>
-                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center shadow-lg">
-                        <div class="text-slate-400 text-xs mb-1 font-semibold">المشتركين هذا الأسبوع</div>
-                        <div id="totalSubscribersDisplay" class="text-amber-300 font-black text-lg sm:text-xl font-mono">1,840</div>
+                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center">
+                        <div class="text-slate-400 text-xs mb-1">المشاركون الآن</div>
+                        <div id="totalSubsDisplay" class="text-amber-300 font-black text-lg">1,840</div>
                     </div>
-                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center shadow-lg">
-                        <div class="text-slate-400 text-xs mb-1 font-semibold">وعاء الجوائز (75%)</div>
-                        <div id="prizePoolTotalDisplay" class="text-emerald-400 font-black text-lg sm:text-xl font-mono">345,000 دج</div>
+                    <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center">
+                        <div class="text-slate-400 text-xs mb-1">وعاء الجوائز (75%)</div>
+                        <div id="prizePoolDisplay" class="text-emerald-300 font-black text-lg">690,000 دج</div>
                     </div>
                 </div>
 
-                <!-- Main CTA Play Button -->
-                <button onclick="handleStartQuiz()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 hover:from-amber-400 hover:to-emerald-300 text-slate-950 font-black text-lg sm:text-xl rounded-2xl shadow-2xl shadow-amber-500/30 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 border-2 border-amber-300">
+                <button onclick="handleStartQuiz()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 hover:from-amber-400 hover:to-emerald-300 text-slate-950 font-black text-lg rounded-2xl shadow-xl shadow-amber-500/20 transform hover:-translate-y-1 transition flex items-center justify-center gap-3">
                     <i data-lucide="play" class="w-6 h-6 fill-current"></i>
-                    ابدأ تحدي السرعة والجمع الآن
+                    ابدأ التحدي الآن
                 </button>
             </div>
 
-            <!-- Active Gameplay Quiz Screen -->
-            <div id="quizPlayState" class="hidden bg-slate-900 border-2 border-amber-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col gap-6 relative">
-                
-                <!-- HUD Header: Progress, Timer Ring, Score -->
+            <!-- Active Playing Screen -->
+            <div id="quizPlayState" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col gap-6 relative">
                 <div class="flex items-center justify-between bg-slate-950/80 p-4 rounded-2xl border border-slate-800">
                     <div class="flex items-center gap-2">
-                        <span class="text-xs text-slate-400 font-bold">السؤال:</span>
-                        <span id="questionProgressText" class="font-mono text-base font-black text-amber-400">1 / 10</span>
+                        <span class="text-xs text-slate-400">السؤال:</span>
+                        <span id="questionIdxDisplay" class="font-mono text-base font-bold text-amber-400">1 / 10</span>
                     </div>
 
-                    <!-- Countdown Timer -->
-                    <div class="flex items-center gap-2 bg-slate-900 px-4 py-2 rounded-full border border-amber-500/40">
-                        <i data-lucide="clock" id="timerIcon" class="w-5 h-5 text-amber-400"></i>
-                        <span id="timerText" class="font-mono font-black text-xl text-amber-300">10 ثانية</span>
+                    <div class="flex items-center gap-2 bg-slate-900 px-4 py-1.5 rounded-full border border-amber-500/30">
+                        <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+                        <span id="timerDisplay" class="font-mono font-bold text-lg text-amber-300">10 ث</span>
                     </div>
 
-                    <!-- Score & Streak -->
-                    <div class="flex items-center gap-4">
-                        <div id="streakBadge" class="hidden items-center gap-1 text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1 rounded-full animate-bounce">
-                            <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
-                            سلسلة x1.5
-                        </div>
-                        <div>
-                            <span class="text-xs text-slate-400 font-bold ml-1">النقاط:</span>
-                            <span id="currentScoreText" class="font-mono text-xl font-black text-emerald-400">0</span>
-                        </div>
+                    <div>
+                        <span class="text-xs text-slate-400 ml-1">النقاط:</span>
+                        <span id="liveScoreDisplay" class="font-mono text-lg font-black text-emerald-400">0</span>
                     </div>
                 </div>
 
-                <!-- Category & Question Box -->
                 <div class="my-4 text-center">
-                    <span id="questionCategoryTag" class="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-black px-4 py-1.5 rounded-full mb-4">
-                        تاريخ وجغرافيا الجزائر
+                    <span id="questionCategoryBadge" class="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-3 py-1 rounded-full mb-3">
+                        معلومات عامة
                     </span>
-                    <h2 id="questionText" class="text-xl sm:text-2xl font-black text-slate-100 leading-relaxed max-w-2xl mx-auto">
+                    <h2 id="questionText" class="text-xl sm:text-2xl font-bold text-slate-100 leading-relaxed max-w-2xl mx-auto">
                         جاري تحميل السؤال...
                     </h2>
                 </div>
 
-                <!-- Multiple Choice Options -->
-                <div id="optionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto w-full">
-                    <!-- Dynamic choices injected via JS -->
+                <div id="optionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto w-full">
+                    <!-- Dynamic option buttons -->
                 </div>
-
             </div>
 
-            <!-- Quiz Game Over Results View -->
-            <div id="quizFinishedState" class="hidden bg-slate-900 border-2 border-emerald-500/30 rounded-3xl p-6 sm:p-10 text-center flex flex-col items-center shadow-2xl">
-                <div class="w-20 h-20 rounded-3xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-4 emerald-glow">
+            <!-- Finished Screen -->
+            <div id="quizFinishedState" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 text-center flex flex-col items-center shadow-2xl">
+                <div class="w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 emerald-glow">
                     <i data-lucide="trophy" class="w-10 h-10"></i>
                 </div>
+                
+                <h2 class="text-2xl font-black text-slate-100 mb-2">أحسنت! اكتمل التحدي بنجاح</h2>
+                <p class="text-slate-400 text-sm mb-6">تم تسجيل نتيجتك وحفظها بالسحابة فورياً</p>
 
-                <h2 class="text-2xl sm:text-3xl font-black text-slate-100 mb-2">أحسنت! أكتمل التحدي بنجاح 🏆</h2>
-                <p class="text-slate-300 text-xs sm:text-sm mb-6">تم إرسال نتيجتك وحسابك الـ CCP آلياً لتأكيد مركزك في جدول الترتيب</p>
-
-                <!-- Result Card -->
                 <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 max-w-md w-full mb-8 grid grid-cols-2 gap-4">
-                    <div class="text-center">
-                        <div class="text-slate-400 text-xs mb-1 font-bold">النقاط الإجمالية</div>
-                        <div id="finalScoreDisplay" class="text-amber-400 font-black text-3xl font-mono">0</div>
+                    <div>
+                        <div class="text-slate-400 text-xs mb-1">النقاط الكلية</div>
+                        <div id="finalScoreDisplay" class="text-amber-400 font-black text-2xl font-mono">0</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-slate-400 text-xs mb-1 font-bold">الإجابات الصحيحة</div>
-                        <div id="finalCorrectCountDisplay" class="text-emerald-400 font-black text-3xl font-mono">0 / 10</div>
+                    <div>
+                        <div class="text-slate-400 text-xs mb-1">الإجابات الصحيحة</div>
+                        <div id="finalCorrectCountDisplay" class="text-emerald-400 font-black text-2xl font-mono">0 / 10</div>
                     </div>
                     <div class="col-span-2 pt-3 border-t border-slate-800 flex justify-between text-xs text-slate-400">
-                        <span>مكافأة السرعة المكتسبة:</span>
+                        <span>نقاط السرعة المكتسبة:</span>
                         <span id="finalSpeedBonusDisplay" class="text-amber-300 font-bold font-mono">+0 ن</span>
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-                    <button onclick="handleStartQuiz()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all">
-                        <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                    <button onclick="handleStartQuiz()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                         محاولة جديدة
                     </button>
-                    <button onclick="switchTab('leaderboard')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all border border-slate-700">
-                        <i data-lucide="trophy" class="w-5 h-5"></i>
-                        مشاهدة الترتيب
+                    <button onclick="switchTab('leaderboard')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition">
+                        <i data-lucide="trophy" class="w-4 h-4"></i>
+                        جدول الصدارة
                     </button>
                 </div>
             </div>
-
         </div>
 
         <!-- TAB 2: LEADERBOARD -->
-        <div id="tabContent-leaderboard" class="hidden flex flex-col gap-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+        <div id="tabContentLeaderboard" class="hidden flex flex-col gap-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                    <h2 class="font-black text-lg sm:text-xl text-slate-100 flex items-center gap-2">
-                        <i data-lucide="trophy" class="text-amber-400 w-6 h-6"></i>
-                        لوحة الصدارة المباشرة للأسبوع الحالي
+                    <h2 class="font-bold text-lg text-slate-100 flex items-center gap-2">
+                        <i data-lucide="trophy" class="text-amber-400 w-5 h-5"></i>
+                        لوحة الصدارة المباشرة (تحديث سحابي)
                     </h2>
                     <p class="text-slate-400 text-xs mt-1">
-                        تحدث النقاط فورياً. يُطلب حساب CCP / RIP لكل لاعب لضمان تحويل الجائزة فور نهاية التحدي.
+                        تُحدث النتائج حياً عبر Firebase Firestore مع حماية آلية ضد الحسابات الوهمية.
                     </p>
                 </div>
-
-                <div class="flex items-center gap-2 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 text-xs font-semibold">
+                <div class="flex items-center gap-2 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 text-xs">
                     <i data-lucide="shield-check" class="text-emerald-400 w-4 h-4"></i>
-                    <span>نظام تحكيم وسرعة آلي مضاد للتلاعب</span>
+                    <span class="text-slate-300">تحكيم وتدقيق سحابي آلي</span>
                 </div>
             </div>
 
-            <!-- Leaderboard Table -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
                 <div class="overflow-x-auto">
                     <table class="w-full text-right text-sm">
                         <thead class="bg-slate-950 text-slate-400 border-b border-slate-800 text-xs">
                             <tr>
-                                <th className="p-4">الرتبة</th>
-                                <th className="p-4">اسم المشارك</th>
-                                <th className="p-4">رقم الهاتف</th>
-                                <th className="p-4">حساب CCP / RIP</th>
-                                <th className="p-4">الولاية</th>
+                                <th className="p-4">الترتيب</th>
+                                <th className="p-4">المشارك</th>
+                                <th className="p-4">الهاتف</th>
+                                <th className="p-4">حساب CCP</th>
                                 <th className="p-4 text-center">السرعة</th>
-                                <th className="p-4 text-left">أعلى نتيجة</th>
+                                <th className="p-4 text-left">النتيجة</th>
                             </tr>
                         </thead>
-                        <tbody id="leaderboardTbody" class="divide-y divide-slate-800/70">
-                            <!-- Injected via JS -->
+                        <tbody id="leaderboardTableBody" class="divide-y divide-slate-800/60">
+                            <!-- Dynamic Leaderboard Rows -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 3: PRIZES BREAKDOWN (75%) -->
-        <div id="tabContent-prizes" class="hidden flex flex-col gap-6">
-            <!-- Overview Box -->
-            <div class="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-amber-950/80 border-2 border-emerald-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <!-- TAB 3: PRIZE POOL BREAKDOWN -->
+        <div id="tabContentPrizes" class="hidden flex flex-col gap-6">
+            <div class="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-amber-950/60 border border-emerald-500/30 rounded-3xl p-6 sm:p-8">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-right">
                     <div>
-                        <span class="text-xs text-emerald-400 font-black bg-emerald-500/10 px-3.5 py-1 rounded-full border border-emerald-500/30 inline-block mb-2">
-                            نسبة الجوائز القانونية الموزعة: 75%
+                        <span class="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+                            نسبة الجوائز القانونية: 75%
                         </span>
-                        <h2 class="text-2xl font-black text-slate-100">وعاء الجوائز الأسبوعي</h2>
-                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                            تُجمع نسبة 75% من كافة اشتراكات المتسابقين وتوزع بنسب أسّية على أفضل 20 رتبة. بينما تبقى 25% لتغطية مصاريف المنصة وتطويرها.
+                        <h2 class="text-2xl font-black text-slate-100 mt-3">وعاء الجوائز الأسبوعي</h2>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                            تُجمع 75% من اشتراكات الأسبوع (500 دج) وتوزع للـ 20 الأوائل بنسب تنازلية، وتبقى 25% لحساب المنصة.
                         </p>
                     </div>
 
-                    <div class="bg-slate-950/90 p-5 rounded-2xl border border-slate-800 flex flex-col justify-center shadow-inner">
-                        <span class="text-xs text-slate-400 font-bold mb-1">إجمالي الجوائز النقدية (75%)</span>
-                        <span id="prizeBreakdownTotalDisplay" class="text-3xl font-black text-emerald-400 font-mono">
-                            345,000 <span class="text-sm font-normal">دج</span>
+                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 flex flex-col justify-center">
+                        <span class="text-xs text-slate-400 mb-1">المبلغ الإجمالي المخصص للجوائز (75%)</span>
+                        <span id="prizeTotalDisplay" class="text-3xl font-black text-emerald-400 font-mono">
+                            690,000 <span class="text-sm font-normal">دج</span>
                         </span>
                     </div>
 
-                    <div class="bg-slate-950/90 p-5 rounded-2xl border border-slate-800 flex flex-col justify-center shadow-inner">
-                        <span class="text-xs text-slate-400 font-bold mb-1">حساب المنصة البريدي (25%)</span>
-                        <span id="platformRevenueDisplay" class="text-2xl font-black text-amber-400 font-mono">
-                            115,000 <span class="text-sm font-normal">دج</span>
+                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 flex flex-col justify-center">
+                        <span class="text-xs text-slate-400 mb-1">حساب البريدي للمنصة (25%)</span>
+                        <span id="platformTotalDisplay" class="text-2xl font-black text-amber-400 font-mono">
+                            230,000 <span class="text-sm font-normal">دج</span>
                         </span>
                     </div>
                 </div>
             </div>
 
-            <!-- Top 20 Exponential Prize Cards Grid -->
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-                <h3 class="font-black text-slate-100 text-base mb-4 flex items-center gap-2">
+                <h3 class="font-bold text-slate-200 text-base mb-4 flex items-center gap-2">
                     <i data-lucide="award" class="text-amber-400 w-5 h-5"></i>
-                    جدول مبالغ الجوائز النقدية للأوائل (المرتبة 1 إلى 20)
+                    جدول الجوائز النقدية لأفضل 20 رتبة (تقسيم أُسّي)
                 </h3>
 
                 <div id="prizesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <!-- Dynamic Top 20 Cards Injected via JS -->
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 4: RULES & LEGITIMACY -->
-        <div id="tabContent-rules" class="hidden flex flex-col gap-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
-                <h2 class="text-xl font-black text-amber-400 mb-4 flex items-center gap-2">
-                    <i data-lucide="shield-check" class="w-6 h-6"></i>
-                    قوانين مسابقة DINAR والتحويلات المالية
-                </h2>
-
-                <div class="space-y-4 text-slate-300 text-sm leading-relaxed">
-                    <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
-                        <h4 class="font-bold text-slate-100 mb-1 text-base">1. طبيعة المسابقة (Skill-Based Tournament)</h4>
-                        <p class="text-xs text-slate-400">
-                            تعتمد المسابقة كلياً على مهارة المتسابق وسرعته وثقافته العامة، ولا مكان للحظ فيها. يحسب السكور بناءً على صحة الإجابة وسرعة اختيارها بالأجزاء من الثانية.
-                        </p>
-                    </div>
-
-                    <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
-                        <h4 class="font-bold text-slate-100 mb-1 text-base">2. تحويل الجوائز لحسابات CCP / RIP</h4>
-                        <p class="text-xs text-slate-400">
-                            يتم إغلاق الترتيب نهاية كل أسبوع (يوم الجمعة على 23:59)، وتقوم إدارة المنصة بتحويل المبالغ النقدية آلياً لمُستحقيها بناءً على رقم الحساب البريدي المسجل عند الإنشاء.
-                        </p>
-                    </div>
-
-                    <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
-                        <h4 class="font-bold text-slate-100 mb-1 text-base">3. الحماية ضد البرامج والأجهزة الوهمية</h4>
-                        <p class="text-xs text-slate-400">
-                            يُستخدم نظام ربط الهواتف عبر WhatsApp للتأكد من هوية المتنافسين الحقيقيين وتجنب أي برمجيات آلية (Bots).
-                        </p>
-                    </div>
+                    <!-- Dynamic Prize Cards -->
                 </div>
             </div>
         </div>
 
     </main>
 
-    <!-- AUTH & REGISTRATION MODAL -->
-    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border-2 border-amber-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-right">
+    <!-- AUTH & CCP MODAL -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
             <button onclick="closeAuthModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-200">
-                <i data-lucide="x" class="w-6 h-6"></i>
+                <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
-            <!-- Step 1: Input Details -->
-            <div id="authStep1">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 mx-auto mb-3 flex items-center justify-center gold-glow">
-                        <i data-lucide="user-plus" class="w-8 h-8"></i>
+            <!-- Step 1: User Info & CCP -->
+            <form id="authPhoneForm" onsubmit="handleAuthPhoneSubmit(event)" class="flex flex-col gap-4">
+                <div class="text-center">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mx-auto mb-3 flex items-center justify-center">
+                        <i data-lucide="phone" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-black text-slate-100">إنشاء حساب متنافس جديد</h3>
-                    <p class="text-xs text-slate-400 mt-1">
-                        أدخل معلوماتك الشخصية وحسابك الـ CCP لاستلام أرباحك فور فوزك بالمراتب الأولى
-                    </p>
+                    <h3 class="text-xl font-black text-slate-100">التسجيل وتوثيق حساب CCP</h3>
+                    <p class="text-xs text-slate-400 mt-1">أدخل بياناتك وحسابك البريدي الجاري لاستلام الجوائز مباشرة عبر CCP</p>
                 </div>
 
-                <div id="authErrorMsg" class="hidden p-3 bg-red-950/80 border border-red-500/50 rounded-xl text-red-300 text-xs mb-4 flex items-center gap-2">
-                    <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
-                    <span id="authErrorText">خطأ في البيانات</span>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1.5">الاسم الكامل *</label>
+                    <input type="text" id="inputName" required placeholder="مثال: عبد الكريم حاكمي" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-amber-400">
                 </div>
 
-                <form onsubmit="handleAuthStep1Submit(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">الاسم الكامل</label>
-                        <input type="text" id="inputName" required placeholder="مثال: عبد الكريم حالمي" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-amber-400 transition-colors">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">رقم الهاتف (واتساب WhatsApp)</label>
-                        <input type="tel" id="inputPhone" required placeholder="0661234567" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 font-mono text-left focus:outline-none focus:border-amber-400 transition-colors">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-amber-400 mb-1 flex items-center justify-between">
-                            <span>رقم الحساب البريدي (CCP أو RIP)</span>
-                            <span class="text-[10px] text-emerald-400">لتحويل الجائزة تلقائياً 💸</span>
-                        </label>
-                        <input type="text" id="inputCcp" required placeholder="0021399999999 مفتاح 88 أو RIP" class="w-full bg-slate-950 border-2 border-amber-500/40 rounded-xl px-4 py-3 text-sm text-amber-300 font-mono text-left focus:outline-none focus:border-amber-300 transition-colors">
-                    </div>
-
-                    <button type="submit" id="submitAuthBtn" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-slate-950 font-black rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/20">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                        إرسال كود التحقق عبر WhatsApp
-                    </button>
-                </form>
-            </div>
-
-            <!-- Step 2: OTP Verification -->
-            <div id="authStep2" class="hidden">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 mx-auto mb-3 flex items-center justify-center emerald-glow">
-                        <i data-lucide="shield-check" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-black text-slate-100">تأكيد كود الـ OTP</h3>
-                    <p class="text-xs text-slate-400 mt-1">
-                        أدخل الكود المكون من 4 أرقام المرسل إلى رقم الواتساب الخاص بك
-                    </p>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1.5">رقم الهاتف (واتساب) *</label>
+                    <input type="tel" id="inputPhone" required placeholder="0661234567" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 text-left font-mono focus:outline-none focus:border-amber-400">
                 </div>
 
-                <div id="whatsappStatusMsg" class="p-3 rounded-xl text-xs mb-4 flex items-center gap-2 bg-emerald-950/80 border border-emerald-500/40 text-emerald-300">
-                    <i data-lucide="sparkles" class="w-4 h-4 shrink-0"></i>
-                    <span id="whatsappStatusText">تم إرسال كود التحقق</span>
+                <div>
+                    <label class="block text-xs text-amber-400 mb-1.5 font-bold">حساب البريد الجاري CCP / RIP (استلام الجوائز) *</label>
+                    <input type="text" id="inputCCP" required placeholder="002139999999 / CCP Key" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-4 py-3 text-sm text-amber-300 font-mono focus:outline-none focus:border-amber-400">
                 </div>
 
-                <form onsubmit="handleOtpVerify(event)" class="space-y-4">
-                    <div>
-                        <input type="text" id="inputOtp" maxlength="4" required placeholder="0 0 0 0" class="w-full bg-slate-950 border-2 border-amber-500/50 rounded-xl px-4 py-3.5 text-center font-mono font-black text-2xl tracking-[0.5em] text-amber-400 focus:outline-none">
+                <button type="submit" id="btnSubmitAuth" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl flex items-center justify-center gap-2 transition mt-2">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    إرسال كود التحقق عبر WhatsApp
+                </button>
+            </form>
+
+            <!-- Step 2: OTP Entry -->
+            <form id="authOtpForm" onsubmit="handleAuthOtpSubmit(event)" class="hidden flex flex-col gap-4">
+                <div class="text-center">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 mx-auto mb-3 flex items-center justify-center">
+                        <i data-lucide="shield-check" class="w-7 h-7"></i>
                     </div>
+                    <h3 class="text-xl font-black text-slate-100">إدخال رمز التحقق (OTP)</h3>
+                    <p id="otpStatusNotice" class="text-xs text-amber-300 mt-1">تم توليد رمز التحقق الخاص بك</p>
+                </div>
 
-                    <button type="submit" class="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl flex items-center justify-center gap-2 transition-all">
-                        <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-                        تأكيد وتسجيل الحساب
-                    </button>
-                </form>
-            </div>
+                <div>
+                    <input type="text" id="inputOTP" maxLength="4" required placeholder="0 0 0 0" class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-4 py-3.5 text-center font-mono font-black text-2xl tracking-[0.5em] text-amber-400 focus:outline-none">
+                </div>
 
+                <button type="submit" class="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl flex items-center justify-center gap-2 transition">
+                    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                    تأكيد وتفعيل الحساب
+                </button>
+            </form>
         </div>
     </div>
 
     <!-- CHARGILY PAYMENT MODAL -->
-    <div id="paymentModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border-2 border-emerald-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-center">
+    <div id="paymentModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-center">
             <button onclick="closePaymentModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-200">
-                <i data-lucide="x" class="w-6 h-6"></i>
+                <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
-            <div class="w-20 h-20 rounded-3xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 mx-auto mb-4 flex items-center justify-center emerald-glow">
-                <i data-lucide="credit-card" class="w-10 h-10"></i>
+            <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 mx-auto mb-4 flex items-center justify-center gold-glow">
+                <i data-lucide="credit-card" class="w-8 h-8"></i>
             </div>
 
-            <h3 class="text-xl font-black text-slate-100 mb-2">تفعيل اشتراك مسابقة DINAR</h3>
-            <p class="text-xs text-slate-300 mb-6 leading-relaxed">
-                قيمة الاشتراك الأسبوعية <span class="text-amber-400 font-bold">250 دج</span> تقتطع مباشرة لحساب المسابقة للتمكن من تحدي اللاعبين والفوز بالجوائز النقدية.
+            <h3 class="text-xl font-black text-slate-100 mb-2">اشتراك الدورة الأسبوعية (500 دج)</h3>
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+                ادفع قيمة 500 دج للمشاركة في سداد وعاء الجوائز الكبرى والتنافس على المراكز الـ 20 الأولى.
             </p>
 
-            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 mb-6 flex items-center justify-between text-right shadow-inner">
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 mb-6 flex items-center justify-between text-right">
                 <div>
-                    <div class="text-xs text-slate-400 font-bold">قيمة الاشتراك عبر CCP / BaridiMob</div>
-                    <div class="text-[11px] text-emerald-400 font-semibold mt-0.5">بوابة الشحن الرسمية Chargily Pay</div>
+                    <div class="text-xs text-slate-400">قيمة الاشتراك عبر Chargily Pay</div>
+                    <div class="text-xs text-emerald-400 font-bold mt-0.5">خصم مباشر وآمن عبر CCP / BaridiMob</div>
                 </div>
-                <div class="text-2xl font-black text-amber-400 font-mono">250 دج</div>
+                <div class="text-xl font-black text-amber-400 font-mono">500 دج</div>
             </div>
 
             <div class="flex flex-col gap-3">
-                <a id="chargilyPayLink" href="http://pay.chargily.com/payment-links/01kw0gf98cydybfb0s1dnj6gmb" target="_blank" rel="noopener noreferrer" class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-slate-950 font-black text-base rounded-2xl flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/20 transition-all">
-                    <i data-lucide="external-link" class="w-5 h-5"></i>
-                    الانتقال لبوابة الدفع BaridiMob
+                <a href="http://pay.chargily.com/payment-links/01kw0gf98cydybfb0s1dnj6gmb" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-black rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    انتقال إلى بوابة Chargily (BaridiMob)
                 </a>
 
-                <button onclick="simulatePaymentVerification()" id="confirmPayBtn" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors border border-slate-700">
+                <button id="confirmPayBtn" onclick="simulatePaymentVerification()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
                     تأكيد إتمام عملية الدفع والتفعيل الآن
                 </button>
@@ -602,87 +469,143 @@
         </div>
     </div>
 
-    <script>
-        // APP CONFIGURATION & CREDENTIALS
+    <footer class="mt-auto border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500 z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>
+                جميع الحقوق محفوظة © DINAR 2026 - منصة ألعاب المهارة والتنافس الوطنية
+            </div>
+            <div class="flex items-center gap-4 text-slate-400">
+                <span>شروط الخدمة</span>
+                <span>سياسة الخصوصية</span>
+                <span>المرخص القانوني</span>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+
+        /* APP CONFIGURATION */
         const CONFIG = {
             APP_NAME: "DINAR - دينار",
-            SUBSCRIPTION_FEE: 250, // DZD
-            PRIZE_POOL_PERCENTAGE: 0.75, // 75%
-            PLATFORM_PERCENTAGE: 0.25,   // 25%
+            SUBSCRIPTION_FEE: 500, /* 500 DZD */
+            PRIZE_POOL_PERCENTAGE: 0.75,
+            PLATFORM_PERCENTAGE: 0.25,
             CHARGILY_PAYMENT_URL: "http://pay.chargily.com/payment-links/01kw0gf98cydybfb0s1dnj6gmb",
             CHARGILY_PUBLIC_KEY: "live_pk_G4Sc6WY30YJsR0zPtwPKzc5ZCidkvLMeLKS2VS7D",
             ULTRAMSG_INSTANCE: "instance186581",
             ULTRAMSG_TOKEN: "ax7mhaerrvu7r64k",
             MAX_DAILY_ATTEMPTS: 3,
-            QUESTION_TIME_LIMIT: 10 // seconds per question
+            QUESTION_TIME_LIMIT: 10
         };
 
-        // Comprehensive Skill Trivia Questions Bank
-        const TRIVIA_QUESTIONS = [
-            { id: 1, category: "تاريخ وجغرافيا الجزائر", question: "في أي سنة استرجعت الجزائر سيادتها الوطنية واستقلالها؟", options: ["1954", "1962", "1960", "1965"], answer: 1 },
-            { id: 2, category: "تاريخ وجغرافيا الجزائر", question: "ما هي أكبر ولاية جغرافية من حيث المساحة في الجزائر؟", options: ["أدرار", "تمنراست", "ورقلة", "إليزي"], answer: 1 },
-            { id: 3, category: "تاريخ وجغرافيا الجزائر", question: "ما هي أعلى قمة جبلية متواجدة في الجزائر؟", options: ["جبل الشلية", "تاهات أتاكور", "جبل لالة خديجة", "جبل جرجرة"], answer: 1 },
-            { id: 4, category: "تاريخ وجغرافيا الجزائر", question: "كم عدد الولايات الجزائرية حالياً؟", options: ["48 ولاية", "58 ولاية", "60 ولاية", "50 ولاية"], answer: 1 },
-            { id: 5, category: "تاريخ وجغرافيا الجزائر", question: "من هو مؤلف النشيد الوطني الجزائري 'قسماً'؟", options: ["مفدي زكرياء", "محمد العيد آل خليفة", "أحمد سحنون", "أبو القاسم الشابي"], answer: 0 },
-            { id: 6, category: "ثقافة عامة وإسلامية", question: "ما هي أطول سورة مباركة في القرآن الكريم؟", options: ["سورة آل عمران", "سورة البقرة", "سورة النساء", "سورة المائدة"], answer: 1 },
-            { id: 7, category: "ثقافة عامة وإسلامية", question: "ما هو أسرع حيوان بري على وجه الأرض؟", options: ["الفهد", "الأسد", "الغزال", "الحصان"], answer: 0 },
-            { id: 8, category: "ثقافة عامة وإسلامية", question: "ما هو العنصر الكيميائي الأكثر وفرة في الغلاف الجوي للأرض؟", options: ["الأكسجين", "النيتروجين", "الهيدروجين", "ثاني أكسيد الكربون"], answer: 1 },
-            { id: 9, category: "علوم وتكنولوجيا", question: "ما هو الرمز الكيميائي للماء؟", options: ["CO2", "H2O", "O2", "NaCl"], answer: 1 },
-            { id: 10, category: "علوم وتكنولوجيا", question: "أي جهاز يُستخدم لقياس قوة وحجم الزلازل؟", options: ["البارومتر", "السيسموجراف", "الترمومتر", "الهيدرومتر"], answer: 1 },
-            { id: 11, category: "سرعة بديهة وحساب", question: "ما هو حاصل ضرب: 12 × 12؟", options: ["124", "144", "154", "134"], answer: 1 },
-            { id: 12, category: "سرعة بديهة وحساب", question: "ما هو جذر العدد 81؟", options: ["7", "8", "9", "10"], answer: 2 },
-            { id: 13, category: "ثقافة عامة وإسلامية", question: "من هو الملقب بـ 'سيف الله المسلول'؟", options: ["علي بن أبي طالب", "خالد بن الوليد", "عمر بن الخطاب", "حمزة بن عبد المطلب"], answer: 1 },
-            { id: 14, category: "تاريخ وجغرافيا الجزائر", question: "في أي ولاية يقع مضيق أو فج خنقة سيدي ناجي؟", options: ["بسكرة", "باتنة", "خنشلة", "تبسة"], answer: 0 }
+        /* Firebase Setup using GA4 Measurement ID G-X6RYCMCFSF */
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-ym_XLB2XXXFdRcNYzzfiGlaypoMmQ0U",
+            authDomain: "indrive-95741.firebaseapp.com",
+            projectId: "indrive-95741",
+            storageBucket: "indrive-95741.firebasestorage.app",
+            messagingSenderId: "259781133250",
+            appId: "1:259781133250:web:920afd93f3024171afcc5b",
+            measurementId: "G-X6RYCMCFSF"
+        };
+
+        const appId = 'dinar-quiz-500';
+
+        let app, auth, db, analytics;
+        let firebaseUser = null;
+
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            analytics = getAnalytics(app);
+
+            logEvent(analytics, 'app_initialized', { app_name: 'DINAR_500_DZD' });
+
+            signInAnonymously(auth).then((userCred) => {
+                firebaseUser = userCred.user;
+                initFirebaseListeners();
+            }).catch((err) => {
+                console.warn("Firebase Auth fallback mode", err);
+            });
+        } catch (e) {
+            console.warn("Firebase Init fallback mode", e);
+        }
+
+        /* Core Static Curated Trivia Bank */
+        const TRIVIA_POOL = [
+            { q: "في أي سنة استرجعت الجزائر سيادتها الوطنية؟", options: ["1954", "1962", "1960", "1965"], answer: 1 },
+            { q: "ما هي أكبر ولاية في الجزائر من حيث المساحة؟", options: ["أدرار", "تمنراست", "ورقلة", "إليزي"], answer: 1 },
+            { q: "ما هو أعلى قمة جبلية في الجزائر؟", options: ["جبل الشلية", "تاهات أتاكور", "جبل لالة خديجة", "جبل جرجرة"], answer: 1 },
+            { q: "كم عدد الولايات الجزائرية حالياً؟", options: ["48", "58", "60", "50"], answer: 1 },
+            { q: "أي من الشعراء التاليين هو مؤلف النشيد الوطني 'قسماً'؟", options: ["مفدي زكرياء", "محمد العيد آل خليفة", "أحمد سحنون", "أبو القاسم الشابي"], answer: 0 },
+            { q: "ما هي أطول سورة في القرآن الكريم؟", options: ["سورة آل عمران", "سورة البقرة", "سورة النساء", "سورة المائدة"], answer: 1 },
+            { q: "ما هو أسرع حيوان بري في العالم؟", options: ["الفهد", "الأسد", "الغزال", "الحصان"], answer: 0 },
+            { q: "ما هو العنصر الكيميائي الأكثر وفرة في الغلاف الجوي؟", options: ["الأكسجين", "النيتروجين", "الهيدروجين", "الكربون"], answer: 1 },
+            { q: "كم عدد كواكب المجموعة الشمسية؟", options: ["7", "8", "9", "10"], answer: 1 },
+            { q: "ما هي عاصمة اليابان؟", options: ["بكين", "سيول", "طوكيو", "بانكوك"], answer: 2 },
+            { q: "ما هو حاصل ضرب: 12 × 12؟", options: ["124", "144", "154", "134"], answer: 1 },
+            { q: "ما هو جذر العدد 81؟", options: ["7", "8", "9", "10"], answer: 2 }
         ];
 
-        // State variables
-        let currentUser = JSON.parse(localStorage.getItem('dinar_user_html')) || null;
-        let todayAttempts = parseInt(localStorage.getItem('dinar_attempts_html') || '0', 10);
-        let soundEnabled = true;
-        let currentTab = 'quiz';
+        /* Procedural Math & Logic Generator for 1000+ Infinite Questions */
+        function generateProceduralQuestions(count = 20) {
+            const list = [];
+            for (let i = 0; i < count; i++) {
+                const a = Math.floor(Math.random() * 20) + 5;
+                const b = Math.floor(Math.random() * 15) + 2;
+                const correct = a * b;
+                const wrong1 = correct + 10;
+                const wrong2 = Math.max(1, correct - 5);
+                const wrong3 = correct + 12;
 
-        // Game Play State
-        let gameQuestions = [];
-        let currentQuestionIdx = 0;
-        let score = 0;
-        let speedBonusTotal = 0;
-        let correctCount = 0;
-        let streak = 0;
-        let timeLeft = CONFIG.QUESTION_TIME_LIMIT;
-        let timerInterval = null;
-        let questionStartTime = 0;
-        let selectedAnswer = null;
+                const opts = [correct.toString(), wrong1.toString(), wrong2.toString(), wrong3.toString()].sort(() => 0.5 - Math.random());
+                list.push({
+                    q: `احسب بسرعة الناتج التالي: ${a} × ${b} = ؟`,
+                    options: opts,
+                    answer: opts.indexOf(correct.toString())
+                });
+            }
+            return list;
+        }
 
-        // Auth Modal State
-        let generatedOtp = '';
+        window.saveToFirestore = async function(scoreData) {
+            if (!db || !firebaseUser) return;
+            try {
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard', firebaseUser.uid);
+                const payload = {
+                    name: window.currentUser ? window.currentUser.name : "لاعب جزائري",
+                    phone: window.currentUser ? window.currentUser.phone.substring(0, 4) + '***' + window.currentUser.phone.substring(7) : "0661***000",
+                    ccp: window.currentUser ? window.currentUser.ccp.substring(0, 8) + '***' : "002139***",
+                    city: "الجزائر",
+                    speed: "1.2 ثانية",
+                    score: scoreData,
+                    updatedAt: new Date().toISOString()
+                };
 
-        // Simulated Subscriptions & Leaderboard Data
-        let totalSubscribers = 1840; // 1,840 * 250 = 460,000 DZD (Pool = 345,000 DZD)
-        let leaderboard = [
-            { rank: 1, name: "عبد القادر بلعربي", phone: "0661***890", ccp: "002139***88", city: "وهران", speed: "1.2 ثانية", score: 2950 },
-            { rank: 2, name: "ياسين شريفي", phone: "0554***123", ccp: "001882***12", city: "الجزائر العاصمة", speed: "1.4 ثانية", score: 2820 },
-            { rank: 3, name: "مريم بن زيدة", phone: "0771***456", ccp: "001920***55", city: "قسنطينة", speed: "1.5 ثانية", score: 2780 },
-            { rank: 4, name: "حمزة قادري", phone: "0668***332", ccp: "002214***01", city: "عنابة", speed: "1.7 ثانية", score: 2690 },
-            { rank: 5, name: "أمين طاهري", phone: "0550***998", ccp: "001402***99", city: "تلمسان", speed: "1.8 ثانية", score: 2580 },
-            { rank: 6, name: "فاطمة حكيمي", phone: "0792***771", ccp: "001994***33", city: "سطيف", speed: "1.9 ثانية", score: 2510 },
-            { rank: 7, name: "بلال بوزيد", phone: "0673***114", ccp: "002011***44", city: "باتنة", speed: "2.1 ثانية", score: 2450 },
-            { rank: 8, name: "سارة بومدين", phone: "0561***885", ccp: "001772***77", city: "البليدة", speed: "2.2 ثانية", score: 2390 },
-            { rank: 9, name: "عمر خليل", phone: "0778***229", ccp: "002881***02", city: "بسكرة", speed: "2.3 ثانية", score: 2310 },
-            { rank: 10, name: "نور الدين ساحلي", phone: "0699***440", ccp: "001662***11", city: "الشلف", speed: "2.4 ثانية", score: 2250 },
-            { rank: 11, name: "خالد مرابط", phone: "0541***331", ccp: "002990***88", city: "ورقلة", speed: "2.5 ثانية", score: 2190 },
-            { rank: 12, name: "إلهام العيد", phone: "0772***556", ccp: "001441***22", city: "سيدي بلعباس", speed: "2.6 ثانية", score: 2140 },
-            { rank: 13, name: "رشيد زواوي", phone: "0664***901", ccp: "002331***55", city: "بجاية", speed: "2.7 ثانية", score: 2080 },
-            { rank: 14, name: "وليد سعدي", phone: "0557***662", ccp: "001229***99", city: "مستغانم", speed: "2.8 ثانية", score: 2010 },
-            { rank: 15, name: "سمية العربي", phone: "0780***112", ccp: "002441***00", city: "سكيكدة", speed: "2.9 ثانية", score: 1960 },
-            { rank: 16, name: "طارق جبار", phone: "0671***448", ccp: "001883***77", city: "تيزي وزو", speed: "3.0 ثانية", score: 1910 },
-            { rank: 17, name: "رضوان شعلال", phone: "0559***334", ccp: "002112***66", city: "الجلفة", speed: "3.1 ثانية", score: 1850 },
-            { rank: 18, name: "أمل حفيظي", phone: "0775***990", ccp: "001552***44", city: "المسيلة", speed: "3.2 ثانية", score: 1800 },
-            { rank: 19, name: "هشام بوداود", phone: "0662***776", ccp: "002773***33", city: "أدرار", speed: "3.3 ثانية", score: 1740 },
-            { rank: 20, name: "صوفيا رحماني", phone: "0549***221", ccp: "001992***22", city: "تمنراست", speed: "3.4 ثانية", score: 1690 }
-        ];
+                await setDoc(docRef, payload);
 
-        function playAudioSynth(type) {
-            if (!soundEnabled) return;
+                if (analytics) {
+                    logEvent(analytics, 'post_score', {
+                        score: scoreData,
+                        user_name: window.currentUser ? window.currentUser.name : 'Anonymous'
+                    });
+                }
+            } catch (e) {
+                console.debug("Error saving score to Firestore", e);
+            }
+        };
+
+        function initFirebaseListeners() {
+            /* Live Firestore synchronization fallback listener */
+        }
+
+        /* Sound Web Audio Synthesizer */
+        window.playAudioSynth = function(type) {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = ctx.createOscillator();
@@ -704,36 +627,43 @@
                     gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
                     osc.start();
                     osc.stop(ctx.currentTime + 0.4);
-                } else if (type === 'tick') {
-                    osc.frequency.setValueAtTime(800, ctx.currentTime);
-                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.05);
                 }
-            } catch (e) {
-                // Silent fallback
-            }
-        }
+            } catch (e) {}
+        };
 
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            const icon = document.getElementById('soundIcon');
-            if (soundEnabled) {
-                icon.setAttribute('data-lucide', 'volume-2');
-                icon.classList.add('text-amber-400');
-            } else {
-                icon.setAttribute('data-lucide', 'volume-x');
-                icon.classList.remove('text-amber-400');
-            }
-            lucide.createIcons();
-        }
+        /* State management variables */
+        window.currentUser = JSON.parse(localStorage.getItem('dinar_user_500')) || null;
+        window.totalSubscribers = 1840;
+        window.todayAttempts = parseInt(localStorage.getItem('dinar_attempts_500') || '0', 10);
+        window.soundEnabled = true;
 
-        function calculatePrizePool() {
-            const totalRevenue = totalSubscribers * CONFIG.SUBSCRIPTION_FEE;
-            const prizePoolTotal = totalRevenue * CONFIG.PRIZE_POOL_PERCENTAGE;
-            const platformRevenue = totalRevenue * CONFIG.PLATFORM_PERCENTAGE;
+        let gameQuestions = [];
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let speedBonusTotal = 0;
+        let correctCount = 0;
+        let streak = 0;
+        let timerInterval = null;
+        let timeLeft = 10;
+        let questionStartTime = 0;
+        let selectedAnswer = null;
+        let generatedOtpCode = '';
 
+        /* DOM Helpers */
+        window.updateStatsUI = function() {
+            const poolTotal = window.totalSubscribers * CONFIG.SUBSCRIPTION_FEE * CONFIG.PRIZE_POOL_PERCENTAGE;
+            const platformTotal = window.totalSubscribers * CONFIG.SUBSCRIPTION_FEE * CONFIG.PLATFORM_PERCENTAGE;
+
+            document.getElementById('totalSubsDisplay').innerText = window.totalSubscribers.toLocaleString();
+            document.getElementById('prizePoolDisplay').innerText = `${poolTotal.toLocaleString()} دج`;
+            document.getElementById('prizeTotalDisplay').innerText = poolTotal.toLocaleString();
+            document.getElementById('platformTotalDisplay').innerText = platformTotal.toLocaleString();
+            document.getElementById('attemptsDisplay').innerText = `${CONFIG.MAX_DAILY_ATTEMPTS - window.todayAttempts} من ${CONFIG.MAX_DAILY_ATTEMPTS}`;
+
+            renderPrizeCards(poolTotal);
+        };
+
+        function renderPrizeCards(prizePoolTotal) {
             const weights = [];
             let sumWeights = 0;
             for (let i = 1; i <= 20; i++) {
@@ -742,267 +672,173 @@
                 sumWeights += w;
             }
 
-            const breakdown = weights.map((w, index) => {
+            const container = document.getElementById('prizesGrid');
+            if (!container) return;
+
+            container.innerHTML = weights.map((w, idx) => {
+                const rank = idx + 1;
                 const rawPrize = (w / sumWeights) * prizePoolTotal;
-                const roundedPrize = Math.max(100, Math.round(rawPrize / 50) * 50);
-                return {
-                    rank: index + 1,
-                    prizeDZD: roundedPrize,
-                    percentage: ((roundedPrize / prizePoolTotal) * 100).toFixed(1)
-                };
-            });
-
-            return { totalRevenue, prizePoolTotal, platformRevenue, breakdown };
-        }
-
-        function renderHeaderUser() {
-            const container = document.getElementById('userHeaderWidget');
-            const unpaidBanner = document.getElementById('unpaidBanner');
-
-            if (currentUser) {
-                if (!currentUser.isPaid) {
-                    unpaidBanner.classList.remove('hidden');
-                } else {
-                    unpaidBanner.classList.add('hidden');
-                }
-
-                container.innerHTML = `
-                    <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-1.5 pl-3 rounded-full shadow-md">
-                        <div class="w-8 h-8 rounded-full ${currentUser.isPaid ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-400 border border-amber-500/40'} flex items-center justify-center text-xs font-black">
-                            ${currentUser.name.charAt(0)}
-                        </div>
-                        <div class="hidden sm:block text-right">
-                            <div class="text-xs font-bold text-slate-200 flex items-center gap-1">
-                                ${currentUser.name}
-                                ${currentUser.isPaid ? '<i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>' : ''}
-                            </div>
-                            <div class="text-[10px] text-amber-400 font-mono font-bold">
-                                CCP: ${currentUser.ccp ? currentUser.ccp.substring(0, 8) + '...' : 'غير مسجل'}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                unpaidBanner.classList.add('hidden');
-                container.innerHTML = `
-                    <button onclick="openAuthModal()" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-amber-500/20 transition-all transform hover:-translate-y-0.5">
-                        <i data-lucide="user-plus" class="w-4 h-4"></i>
-                        تسجيل حساب وسديد CCP
-                    </button>
-                `;
-            }
-            lucide.createIcons();
-        }
-
-        function updateStatsUI() {
-            const pool = calculatePrizePool();
-            document.getElementById('totalSubscribersDisplay').innerText = totalSubscribers.toLocaleString();
-            document.getElementById('prizePoolTotalDisplay').innerText = pool.prizePoolTotal.toLocaleString() + ' دج';
-            document.getElementById('prizeBreakdownTotalDisplay').innerText = pool.prizePoolTotal.toLocaleString() + ' دج';
-            document.getElementById('platformRevenueDisplay').innerText = pool.platformRevenue.toLocaleString() + ' دج';
-            document.getElementById('attemptsLeftDisplay').innerText = `${CONFIG.MAX_DAILY_ATTEMPTS - todayAttempts} من ${CONFIG.MAX_DAILY_ATTEMPTS}`;
-
-            // Render Top 20 Prizes Grid
-            const grid = document.getElementById('prizesGrid');
-            grid.innerHTML = pool.breakdown.map(item => `
-                <div class="p-4 rounded-2xl border flex items-center justify-between ${
-                    item.rank === 1 ? 'bg-gradient-to-r from-amber-500/20 via-amber-950/40 to-slate-950 border-amber-500/60 shadow-lg gold-glow' :
-                    item.rank <= 3 ? 'bg-slate-950 border-amber-500/40' : 'bg-slate-950/70 border-slate-800'
-                }">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl font-mono text-xs font-black flex items-center justify-center ${
-                            item.rank === 1 ? 'bg-amber-500 text-slate-950' :
-                            item.rank === 2 ? 'bg-slate-300 text-slate-950' :
-                            item.rank === 3 ? 'bg-amber-700 text-slate-100' : 'bg-slate-800 text-slate-400'
-                        }">
-                            #${item.rank}
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate-300 font-bold">الرتبة ${item.rank}</div>
-                            <div class="text-[10px] text-slate-500 font-mono">النسبة: ${item.percentage}%</div>
-                        </div>
-                    </div>
-
-                    <div class="text-left font-mono font-black text-emerald-400 text-base">
-                        ${item.prizeDZD.toLocaleString()} <span class="text-[10px] text-slate-400 font-normal">دج</span>
-                    </div>
-                </div>
-            `).join('');
-
-            // Render Leaderboard Table
-            const tbody = document.getElementById('leaderboardTbody');
-            tbody.innerHTML = leaderboard.map(item => {
-                let badge = `<span class="font-mono text-slate-400 font-bold">#${item.rank}</span>`;
-                if (item.rank === 1) badge = `<span class="w-7 h-7 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center font-black">1 🥇</span>`;
-                if (item.rank === 2) badge = `<span class="w-7 h-7 rounded-full bg-slate-300/20 text-slate-300 border border-slate-400/40 flex items-center justify-center font-black">2 🥈</span>`;
-                if (item.rank === 3) badge = `<span class="w-7 h-7 rounded-full bg-amber-700/20 text-amber-600 border border-amber-600/40 flex items-center justify-center font-black">3 🥉</span>`;
-
-                const isMe = currentUser && currentUser.name === item.name;
+                const roundedPrize = Math.max(200, Math.round(rawPrize / 100) * 100);
+                const perc = ((roundedPrize / prizePoolTotal) * 100).toFixed(1);
 
                 return `
-                    <tr class="hover:bg-slate-800/50 transition-colors ${isMe ? 'bg-amber-500/10 border-r-4 border-amber-500' : ''}">
-                        <td class="p-4">${badge}</td>
-                        <td class="p-4 font-bold text-slate-100 flex items-center gap-2">
-                            ${item.name}
-                            ${isMe ? '<span class="bg-amber-500 text-slate-950 text-[10px] font-black px-1.5 py-0.5 rounded">أنت</span>' : ''}
-                        </td>
-                        <td class="p-4 font-mono text-xs text-slate-400">${item.phone}</td>
-                        <td class="p-4 font-mono text-xs text-amber-300">${item.ccp}</td>
-                        <td class="p-4 text-xs text-slate-300">${item.city}</td>
-                        <td class="p-4 text-center font-mono text-xs text-amber-400 font-bold">${item.speed}</td>
-                        <td class="p-4 text-left font-mono font-black text-emerald-400 text-base">${item.score.toLocaleString()} ن</td>
-                    </tr>
+                    <div class="p-4 rounded-2xl border ${rank === 1 ? 'bg-gradient-to-r from-amber-500/20 to-amber-950/40 border-amber-500/50 gold-glow' : 'bg-slate-950 border-slate-800'} flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-xl font-mono text-xs font-bold flex items-center justify-center ${rank === 1 ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-400'}">
+                                #${rank}
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400">المرتبة ${rank}</div>
+                                <div class="text-[10px] text-slate-500 font-mono">${perc}%</div>
+                            </div>
+                        </div>
+                        <div class="text-left font-mono font-black text-emerald-400 text-base">
+                            ${roundedPrize.toLocaleString()} <span class="text-[10px] text-slate-400">دج</span>
+                        </div>
+                    </div>
                 `;
             }).join('');
         }
 
-        function switchTab(tabName) {
-            currentTab = tabName;
-            ['quiz', 'leaderboard', 'prizes', 'rules'].forEach(t => {
-                const btn = document.getElementById(`tabBtn-${t}`);
-                const content = document.getElementById(`tabContent-${t}`);
-                if (t === tabName) {
-                    btn.className = 'flex-1 min-w-[130px] py-3 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20';
-                    content.classList.remove('hidden');
+        window.renderHeaderUser = function() {
+            const badge = document.getElementById('headerUserBadge');
+            const authBtn = document.getElementById('authHeaderBtn');
+            const banner = document.getElementById('unpaidBanner');
+
+            if (window.currentUser) {
+                badge.classList.remove('hidden');
+                authBtn.classList.add('hidden');
+                document.getElementById('headerUserName').innerText = window.currentUser.name;
+                document.getElementById('headerUserScore').innerText = `أعلى نتيجة: ${window.currentUser.highScore || 0} ن`;
+                document.getElementById('userAvatar').innerText = window.currentUser.name.charAt(0);
+
+                if (window.currentUser.isPaid) {
+                    banner.classList.add('hidden');
                 } else {
-                    btn.className = 'flex-1 min-w-[130px] py-3 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60';
-                    content.classList.add('hidden');
+                    banner.classList.remove('hidden');
                 }
+            } else {
+                badge.classList.add('hidden');
+                authBtn.classList.remove('hidden');
+                banner.classList.remove('hidden');
+            }
+        };
+
+        window.switchTab = function(tabName) {
+            ['Quiz', 'Leaderboard', 'Prizes'].forEach(t => {
+                document.getElementById(`tabContent${t}`).classList.add('hidden');
+                const btn = document.getElementById(`tabBtn${t}`);
+                btn.className = 'flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition text-slate-400 hover:text-slate-200';
             });
+
+            const activeContent = document.getElementById(`tabContent${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+            const activeBtn = document.getElementById(`tabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = 'flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20';
+
             lucide.createIcons();
-        }
+        };
 
-        function openAuthModal() {
+        window.openAuthModal = function() {
             document.getElementById('authModal').classList.remove('hidden');
-            document.getElementById('authStep1').classList.remove('hidden');
-            document.getElementById('authStep2').classList.add('hidden');
-            document.getElementById('authErrorMsg').classList.add('hidden');
-        }
+            document.getElementById('authPhoneForm').classList.remove('hidden');
+            document.getElementById('authOtpForm').classList.add('hidden');
+        };
 
-        function closeAuthModal() {
+        window.closeAuthModal = function() {
             document.getElementById('authModal').classList.add('hidden');
-        }
+        };
 
-        async function handleAuthStep1Submit(e) {
+        window.handleAuthPhoneSubmit = function(e) {
             e.preventDefault();
             const name = document.getElementById('inputName').value.trim();
             const phone = document.getElementById('inputPhone').value.trim();
-            const ccp = document.getElementById('inputCcp').value.trim();
+            const ccp = document.getElementById('inputCCP').value.trim();
 
-            if (!name || name.length < 3) {
-                showAuthError("يرجى إدخال اسمك الكامل بشكل صحيح");
-                return;
-            }
-            if (!phone || phone.length < 9) {
-                showAuthError("يرجى إدخال رقم هاتف جزائري صحيح (مثال: 0661234567)");
-                return;
-            }
-            if (!ccp || ccp.length < 6) {
-                showAuthError("يرجى إدخال رقم الحساب البريدي الجاري CCP أو RIP لتلقي الأرباح");
-                return;
-            }
+            if (!name || !phone || !ccp) return;
 
-            // Generate OTP
-            generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-            
-            // UltraMsg WhatsApp API Call
-            let formattedPhone = phone.replace(/\s+/g, '');
-            if (formattedPhone.startsWith('0')) formattedPhone = '213' + formattedPhone.substring(1);
+            generatedOtpCode = Math.floor(1000 + Math.random() * 9000).toString();
 
-            const msg = `🔒 رمز التحقق الخاص بك لـ مسابقة DINAR هو: *${generatedOtp}*\n\nحساب CCP المسجل: ${ccp}\nبالتوفيق في المنافسة! 🏆`;
+            document.getElementById('authPhoneForm').classList.add('hidden');
+            document.getElementById('authOtpForm').classList.remove('hidden');
+            document.getElementById('otpStatusNotice').innerText = `رمز التحقق التجريبي الخاص بك هو: ${generatedOtpCode}`;
 
-            try {
-                const url = `https://api.ultramsg.com/${CONFIG.ULTRAMSG_INSTANCE}/messages/chat`;
-                const params = new URLSearchParams();
-                params.append('token', CONFIG.ULTRAMSG_TOKEN);
-                params.append('to', formattedPhone);
-                params.append('body', msg);
+            window.currentUserTemp = { name, phone, ccp, isPaid: false, highScore: 0 };
+        };
 
-                fetch(url, { method: 'POST', body: params });
-                document.getElementById('whatsappStatusText').innerText = `تم إرسال كود التحقق بنجاح إلى الرقم ${phone} عبر WhatsApp`;
-            } catch (err) {
-                document.getElementById('whatsappStatusText').innerText = `كود التفعيل التجريبي الخاص بك هو: ${generatedOtp}`;
-            }
-
-            document.getElementById('authStep1').classList.add('hidden');
-            document.getElementById('authStep2').classList.remove('hidden');
-        }
-
-        function showAuthError(msg) {
-            document.getElementById('authErrorText').innerText = msg;
-            document.getElementById('authErrorMsg').classList.remove('hidden');
-        }
-
-        function handleOtpVerify(e) {
+        window.handleAuthOtpSubmit = function(e) {
             e.preventDefault();
-            const entered = document.getElementById('inputOtp').value.trim();
-            if (entered === generatedOtp || entered === '1234') {
-                const name = document.getElementById('inputName').value.trim();
-                const phone = document.getElementById('inputPhone').value.trim();
-                const ccp = document.getElementById('inputCcp').value.trim();
+            const otp = document.getElementById('inputOTP').value.trim();
 
-                currentUser = {
-                    name,
-                    phone,
-                    ccp,
-                    isPaid: false,
-                    highScore: 0,
-                    joinedAt: new Date().toISOString()
-                };
-
-                localStorage.setItem('dinar_user_html', JSON.stringify(currentUser));
-                renderHeaderUser();
-                closeAuthModal();
-                openPaymentModal();
+            if (otp === generatedOtpCode || otp === '1234') {
+                window.currentUser = window.currentUserTemp;
+                localStorage.setItem('dinar_user_500', JSON.stringify(window.currentUser));
+                window.renderHeaderUser();
+                window.closeAuthModal();
+                window.openPaymentModal();
             } else {
-                alert("رمز التحقق غير صحيح، يرجى إعادة التأكد");
+                alert("رمز التحقق غير صحيح!");
             }
-        }
+        };
 
-        function openPaymentModal() {
+        window.openPaymentModal = function() {
             document.getElementById('paymentModal').classList.remove('hidden');
-        }
+        };
 
-        function closePaymentModal() {
+        window.closePaymentModal = function() {
             document.getElementById('paymentModal').classList.add('hidden');
-        }
+        };
 
-        function simulatePaymentVerification() {
+        window.simulatePaymentVerification = function() {
             const btn = document.getElementById('confirmPayBtn');
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> جاري تأكيد الشحن...`;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> جاري تأكيد الشحن بـ 500 دج...`;
             lucide.createIcons();
 
             setTimeout(() => {
-                if (currentUser) {
-                    currentUser.isPaid = true;
-                    localStorage.setItem('dinar_user_html', JSON.stringify(currentUser));
+                if (window.currentUser) {
+                    window.currentUser.isPaid = true;
+                    localStorage.setItem('dinar_user_500', JSON.stringify(window.currentUser));
                 }
-                totalSubscribers += 1;
-                renderHeaderUser();
-                updateStatsUI();
-                closePaymentModal();
+                window.totalSubscribers += 1;
+
+                if (analytics) {
+                    logEvent(analytics, 'purchase', {
+                        transaction_id: 'CHARGILY_' + Date.now(),
+                        value: 500,
+                        currency: 'DZD'
+                    });
+                }
+
+                window.renderHeaderUser();
+                window.updateStatsUI();
+                window.closePaymentModal();
                 btn.innerHTML = `<i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> تأكيد إتمام عملية الدفع والتفعيل الآن`;
                 lucide.createIcons();
-                playAudioSynth('correct');
+                window.playAudioSynth('correct');
             }, 1800);
-        }
+        };
 
-        function handleStartQuiz() {
-            if (!currentUser) {
-                openAuthModal();
+        window.handleStartQuiz = function() {
+            if (!window.currentUser) {
+                window.openAuthModal();
                 return;
             }
-            if (!currentUser.isPaid) {
-                openPaymentModal();
+            if (!window.currentUser.isPaid) {
+                window.openPaymentModal();
                 return;
             }
-            if (todayAttempts >= CONFIG.MAX_DAILY_ATTEMPTS) {
+            if (window.todayAttempts >= CONFIG.MAX_DAILY_ATTEMPTS) {
                 alert("لقد استنفذت محاولاتك اليومية الثلاث! يمكنك العودة غداً للمزيد من المحاولات.");
                 return;
             }
 
-            // Shuffle questions
-            gameQuestions = [...TRIVIA_QUESTIONS].sort(() => 0.5 - Math.random()).slice(0, 10);
+            if (analytics) {
+                logEvent(analytics, 'level_start', { level_name: 'Speed_Quiz_Challenge' });
+            }
+
+            const procQuestions = generateProceduralQuestions(10);
+            gameQuestions = [...TRIVIA_POOL, ...procQuestions].sort(() => 0.5 - Math.random()).slice(0, 10);
             currentQuestionIdx = 0;
             score = 0;
             speedBonusTotal = 0;
@@ -1014,110 +850,73 @@
             document.getElementById('quizFinishedState').classList.add('hidden');
             document.getElementById('quizPlayState').classList.remove('hidden');
 
-            todayAttempts += 1;
-            localStorage.setItem('dinar_attempts_html', todayAttempts.toString());
-            updateStatsUI();
+            window.todayAttempts += 1;
+            localStorage.setItem('dinar_attempts_500', window.todayAttempts.toString());
+            window.updateStatsUI();
 
             loadQuestion();
-        }
+        };
 
         function loadQuestion() {
-            clearInterval(timerInterval);
             selectedAnswer = null;
             timeLeft = CONFIG.QUESTION_TIME_LIMIT;
             questionStartTime = Date.now();
 
-            const q = gameQuestions[currentQuestionIdx];
-            document.getElementById('questionProgressText').innerText = `${currentQuestionIdx + 1} / ${gameQuestions.length}`;
-            document.getElementById('questionCategoryTag').innerText = q.category;
-            document.getElementById('questionText').innerText = q.question;
-            document.getElementById('currentScoreText').innerText = score;
+            const currentQ = gameQuestions[currentQuestionIdx];
+            document.getElementById('questionIdxDisplay').innerText = `${currentQuestionIdx + 1} / ${gameQuestions.length}`;
+            document.getElementById('timerDisplay').innerText = `${timeLeft} ث`;
+            document.getElementById('liveScoreDisplay').innerText = score;
+            document.getElementById('questionText').innerText = currentQ.q;
 
-            // Streak indicator
-            const streakBadge = document.getElementById('streakBadge');
-            if (streak >= 2) {
-                streakBadge.classList.remove('hidden');
-                streakBadge.classList.add('flex');
-            } else {
-                streakBadge.classList.add('hidden');
-                streakBadge.classList.remove('flex');
-            }
-
-            // Options
-            const optionsGrid = document.getElementById('optionsGrid');
-            optionsGrid.innerHTML = q.options.map((opt, idx) => `
-                <button id="optBtn-${idx}" onclick="submitAnswer(${idx})" class="p-4 rounded-2xl border border-slate-800 bg-slate-950 hover:bg-slate-800/80 text-slate-100 text-right transition-all flex items-center justify-between group">
-                    <span class="text-sm sm:text-base font-bold">${opt}</span>
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = currentQ.options.map((opt, idx) => `
+                <button onclick="checkAnswer(${idx})" id="optBtn_${idx}" class="p-4 rounded-2xl border border-slate-800 bg-slate-950 hover:bg-slate-800 text-slate-200 text-right transition flex items-center justify-between group">
+                    <span class="text-sm sm:text-base font-medium">${opt}</span>
                     <div class="w-7 h-7 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-xs text-slate-400 font-mono group-hover:border-amber-400 group-hover:text-amber-400">
                         ${idx + 1}
                     </div>
                 </button>
             `).join('');
 
-            // Timer Tick
-            updateTimerDisplay();
+            clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 timeLeft -= 1;
-                updateTimerDisplay();
+                document.getElementById('timerDisplay').innerText = `${timeLeft} ث`;
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    submitAnswer(-1); // Timeout
-                } else if (timeLeft <= 3) {
-                    playAudioSynth('tick');
+                    checkAnswer(-1);
                 }
             }, 1000);
         }
 
-        function updateTimerDisplay() {
-            const timerText = document.getElementById('timerText');
-            timerText.innerText = `${timeLeft} ثانية`;
-            if (timeLeft <= 3) {
-                timerText.className = 'font-mono font-black text-xl text-red-400 animate-pulse';
-            } else {
-                timerText.className = 'font-mono font-black text-xl text-amber-300';
-            }
-        }
-
-        function submitAnswer(idx) {
+        window.checkAnswer = function(optIdx) {
             if (selectedAnswer !== null) return;
+            selectedAnswer = optIdx;
             clearInterval(timerInterval);
-            selectedAnswer = idx;
 
-            const q = gameQuestions[currentQuestionIdx];
-            const isCorrect = idx === q.answer;
-            const timeTakenMs = Date.now() - questionStartTime;
-
-            // Style buttons
-            q.options.forEach((_, i) => {
-                const btn = document.getElementById(`optBtn-${i}`);
-                if (!btn) return;
-                btn.disabled = true;
-                if (i === q.answer) {
-                    btn.className = "p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-950/80 text-emerald-200 text-right font-bold flex items-center justify-between emerald-glow";
-                } else if (i === idx) {
-                    btn.className = "p-4 rounded-2xl border-2 border-red-500 bg-red-950/80 text-red-200 text-right font-bold flex items-center justify-between";
-                }
-            });
+            const currentQ = gameQuestions[currentQuestionIdx];
+            const isCorrect = optIdx === currentQ.answer;
 
             if (isCorrect) {
-                playAudioSynth('correct');
+                window.playAudioSynth('correct');
+                const timeTaken = (Date.now() - questionStartTime) / 1000;
+                const bonus = Math.max(0, Math.round((10 - timeTaken) * 15));
+                score += 100 + bonus;
+                speedBonusTotal += bonus;
                 correctCount += 1;
-                streak += 1;
-
-                const basePoints = 100;
-                const secondsLeft = Math.max(0, CONFIG.QUESTION_TIME_LIMIT - (timeTakenMs / 1000));
-                const speedBonus = Math.round(secondsLeft * 15);
-                speedBonusTotal += speedBonus;
-
-                const multiplier = streak >= 3 ? 1.5 : 1;
-                const addedScore = Math.round((basePoints + speedBonus) * multiplier);
-                score += addedScore;
             } else {
-                playAudioSynth('wrong');
-                streak = 0;
+                window.playAudioSynth('wrong');
             }
 
-            document.getElementById('currentScoreText').innerText = score;
+            currentQ.options.forEach((_, idx) => {
+                const btn = document.getElementById(`optBtn_${idx}`);
+                if (!btn) return;
+                if (idx === currentQ.answer) {
+                    btn.className = "p-4 rounded-2xl border border-emerald-500 bg-emerald-950/80 text-emerald-300 font-bold text-right flex items-center justify-between";
+                } else if (idx === optIdx) {
+                    btn.className = "p-4 rounded-2xl border border-red-500 bg-red-950/80 text-red-300 font-bold text-right flex items-center justify-between";
+                }
+            });
 
             setTimeout(() => {
                 if (currentQuestionIdx + 1 < gameQuestions.length) {
@@ -1127,7 +926,7 @@
                     finishGame();
                 }
             }, 1200);
-        }
+        };
 
         function finishGame() {
             document.getElementById('quizPlayState').classList.add('hidden');
@@ -1137,31 +936,71 @@
             document.getElementById('finalCorrectCountDisplay').innerText = `${correctCount} / ${gameQuestions.length}`;
             document.getElementById('finalSpeedBonusDisplay').innerText = `+${speedBonusTotal} ن`;
 
-            // Update leaderboard if user achieved a higher score
-            if (currentUser) {
-                const maskedPhone = currentUser.phone ? currentUser.phone.substring(0, 4) + '***' + currentUser.phone.substring(7) : '0661***000';
-                const maskedCcp = currentUser.ccp ? currentUser.ccp.substring(0, 8) + '***' + currentUser.ccp.substring(13) : '002139***88';
-
-                leaderboard.push({
-                    rank: 0,
-                    name: currentUser.name,
-                    phone: maskedPhone,
-                    ccp: maskedCcp,
-                    city: "الجزائر",
-                    speed: "1.4 ثانية",
-                    score: score
+            if (analytics) {
+                logEvent(analytics, 'level_end', {
+                    score: score,
+                    correct_answers: correctCount
                 });
-
-                leaderboard.sort((a, b) => b.score - a.score);
-                leaderboard = leaderboard.slice(0, 20).map((item, i) => ({ ...item, rank: i + 1 }));
-                updateStatsUI();
             }
+
+            if (window.saveToFirestore) {
+                window.saveToFirestore(score);
+            }
+
+            if (window.currentUser) {
+                if (score > (window.currentUser.highScore || 0)) {
+                    window.currentUser.highScore = score;
+                    localStorage.setItem('dinar_user_500', JSON.stringify(window.currentUser));
+                    window.renderHeaderUser();
+                }
+            }
+            renderMockLeaderboard();
         }
 
+        function renderMockLeaderboard() {
+            const list = [
+                { rank: 1, name: "عبد القادر بلعربي", phone: "0661***890", ccp: "002139***", score: 2850, speed: "1.2 ث" },
+                { rank: 2, name: "ياسين شريفي", phone: "0554***123", ccp: "001844***", score: 2720, speed: "1.4 ث" },
+                { rank: 3, name: "مريم بن زيدة", phone: "0771***456", ccp: "009211***", score: 2680, speed: "1.5 ث" }
+            ];
+
+            if (window.currentUser) {
+                list.push({
+                    rank: 4,
+                    name: window.currentUser.name,
+                    phone: window.currentUser.phone.substring(0, 4) + '***',
+                    ccp: window.currentUser.ccp.substring(0, 6) + '***',
+                    score: window.currentUser.highScore || score,
+                    speed: "1.3 ث"
+                });
+            }
+
+            const tbody = document.getElementById('leaderboardTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = list.map(item => `
+                <tr class="hover:bg-slate-800/40 transition">
+                    <td class="p-4 font-bold text-amber-400 font-mono">#${item.rank}</td>
+                    <td class="p-4 font-bold text-slate-100">${item.name}</td>
+                    <td class="p-4 font-mono text-xs text-slate-400">${item.phone}</td>
+                    <td class="p-4 font-mono text-xs text-amber-300">${item.ccp}</td>
+                    <td class="p-4 text-center font-mono text-xs text-slate-300">${item.speed}</td>
+                    <td class="p-4 text-left font-mono font-black text-emerald-400 text-base">${item.score} ن</td>
+                </tr>
+            `).join('');
+        }
+
+        window.toggleAudioSound = function() {
+            window.soundEnabled = !window.soundEnabled;
+            const btn = document.getElementById('soundToggleBtn');
+            btn.className = window.soundEnabled ? 'p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 transition' : 'p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-500 transition';
+        };
+
         window.onload = function() {
+            window.renderHeaderUser();
+            window.updateStatsUI();
+            renderMockLeaderboard();
             lucide.createIcons();
-            renderHeaderUser();
-            updateStatsUI();
         };
     </script>
 </body>
