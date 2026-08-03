@@ -43,7 +43,8 @@
                         dinarEmerald: '#10B981',
                         dinarDark: '#020617',
                         dinarCard: '#0F172A',
-                        dinarPurple: '#8B5CF6'
+                        dinarPurple: '#8B5CF6',
+                        dinarBlue: '#3B82F6'
                     },
                     fontFamily: {
                         sans: ['Cairo', 'Tajawal', 'sans-serif']
@@ -61,7 +62,7 @@
             overflow-x: hidden;
         }
 
-        /* Animated Floating Currency & Star Graphic Elements */
+        /* Animated Floating Currency & Visuals */
         .money-float {
             position: absolute;
             pointer-events: none;
@@ -84,8 +85,11 @@
         .purple-glow {
             box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.35);
         }
+        .blue-glow {
+            box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.35);
+        }
 
-        /* Custom Scrollbar */
+        /* Custom Scrollbars */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
@@ -100,9 +104,11 @@
         <div class="money-float bottom-1/4 right-20 text-6xl text-amber-500" style="animation-delay: -6s;">🏆</div>
         <div class="money-float bottom-10 left-1/4 text-5xl text-emerald-300" style="animation-delay: -9s;">💰</div>
         <div class="money-float top-1/4 right-1/3 text-5xl text-purple-400" style="animation-delay: -4s;">🪐</div>
+        <div class="money-float top-1/2 right-10 text-5xl text-blue-400" style="animation-delay: -2s;">🏛️</div>
         <div class="absolute top-0 right-1/2 translate-x-1/2 w-[550px] h-[550px] bg-amber-500/10 blur-[160px] rounded-full"></div>
     </div>
 
+    <!-- MAIN APP HEADER -->
     <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-amber-500/20 px-4 py-3">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -117,10 +123,10 @@
                             DINAR
                         </span>
                         <span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
-                            500 DA مسابقة مهارات شاملة
+                            500 DA مسابقة مهارات
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-400">منافسة المهارة السريعة والعلوم والجوائز الأسبوعية</p>
+                    <p class="text-[11px] text-slate-400">صاحب الحساب المعتمد: <strong class="text-amber-300 font-bold">حاكمي عبد الكريم</strong></p>
                 </div>
             </div>
 
@@ -130,7 +136,7 @@
                 </button>
 
                 <!-- Admin Modal Trigger Button -->
-                <button onclick="openAdminModal()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-400 transition" title="لوحة أدمن المنصة">
+                <button onclick="openAdminModal()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-400 transition" title="لوحة أدمن المنصة ومحاكي الـ Webhook">
                     <i data-lucide="shield" class="w-4 h-4"></i>
                 </button>
 
@@ -176,7 +182,7 @@
                 </div>
                 <div>
                     <h3 class="font-bold text-amber-300 text-sm sm:text-base">تفعيل اشتراك المسابقة الأسبوعية (500 دج)</h3>
-                    <p class="text-xs text-slate-300 mt-0.5">سدد اشتراكك الرمزي بـ 500 دج عبر BaridiMob أو CCP وادخل فوراً في سباق الصدارة على الجوائز النقدية!</p>
+                    <p class="text-xs text-slate-300 mt-0.5">سدد اشتراكك الرمزي بـ 500 دج للحساب المعتمد <strong class="text-amber-400">حاكمي عبد الكريم</strong> عبر Chargily Pay / BaridiMob واكسب مكانك بين الأوائل!</p>
                 </div>
             </div>
             <button onclick="openPaymentModal()" class="w-full sm:w-auto shrink-0 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs px-5 py-3 rounded-xl shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition">
@@ -217,10 +223,10 @@
                 </div>
 
                 <h1 class="text-2xl sm:text-4xl font-black text-slate-100 mb-3">
-                    تحدي المهارة والأسئلة الشاملة (فلك، أدب، رياضيات، قانون، كهرباء)
+                    تحدي المهارة والسرعة الشامل (آثار، جغرافيا، تاريخ إسلامي والجزائر، اقتصاد، إنترنت، طب، كيمياء)
                 </h1>
-                <p class="text-slate-400 text-sm sm:text-base max-w-xl mb-8 leading-relaxed">
-                    نافس في الإجابة على الأسئلة المتنوعة بأسرع وقت! تتغير الأسئلة آلياً في كل محاولة وتشمل كافة التخصصات والعلوم.
+                <p class="text-slate-400 text-sm sm:text-base max-w-2xl mb-8 leading-relaxed">
+                    نافس في الإجابة على الأسئلة المتنوعة والمتجددة باستمرار! تتغير الأسئلة آلياً في كل محاولة ولا تتكرر إطلاقاً لضمان أقصى درجات العدالة والتحدي.
                 </p>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl mb-8">
@@ -243,19 +249,23 @@
                 </div>
 
                 <!-- Domain Category Pills -->
-                <div class="flex flex-wrap items-center justify-center gap-2 mb-8 max-w-xl">
-                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🪐 فلك وعلوم</span>
-                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">⚽ رياضة عالمية</span>
-                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">⚡ كهرباء وفيزياء</span>
-                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">📜 شعر وأدب</span>
+                <div class="flex flex-wrap items-center justify-center gap-2 mb-8 max-w-2xl">
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🏛️ آثار وحضارات</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🗺️ جغرافيا ومعالم</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">☪️ تاريخ إسلامي</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🇩🇿 تاريخ الجزائر والمجاهدين</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">📈 اقتصاد وتجارة</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">💻 إنترنت وإعلام آلي</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🩺 طب وأحياء</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🧪 كيمياء وعلوم</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🪐 فلك وفضاء</span>
                     <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">⚖️ قانون ودستور</span>
-                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🤔 فلسفة ومنطق</span>
-                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">🇩🇿 تاريخ جزائري</span>
+                    <span class="bg-slate-950 text-slate-300 border border-slate-800 text-[11px] px-3 py-1 rounded-full">📜 شعر وأدب</span>
                 </div>
 
                 <button onclick="handleStartQuiz()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 hover:from-amber-400 hover:to-emerald-300 text-slate-950 font-black text-lg rounded-2xl shadow-xl shadow-amber-500/20 transform hover:-translate-y-1 transition flex items-center justify-center gap-3">
                     <i data-lucide="play" class="w-6 h-6 fill-current"></i>
-                    ابدأ التحدي السريع
+                    ابدأ التحدي السريع (أسئلة جديدة)
                 </button>
             </div>
 
@@ -319,7 +329,7 @@
                 <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
                     <button onclick="handleStartQuiz()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition">
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-                        محاولة جديدة
+                        محاولة جديدة أسئلة جديدة
                     </button>
                     <button onclick="switchTab('leaderboard')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition">
                         <i data-lucide="trophy" class="w-4 h-4"></i>
@@ -454,7 +464,7 @@
                     <div class="space-y-3 text-xs">
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-slate-300">الرياضيات والسرعة</span>
+                                <span class="text-slate-300">الرياضيات والحساب السريع</span>
                                 <span class="text-amber-400 font-mono font-bold">88%</span>
                             </div>
                             <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
@@ -463,29 +473,29 @@
                         </div>
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-slate-300">الفلك والعلوم</span>
-                                <span class="text-purple-400 font-mono font-bold">74%</span>
+                                <span class="text-slate-300">تاريخ الجزائر وثورة التحرير والمجاهدين</span>
+                                <span class="text-emerald-400 font-mono font-bold">92%</span>
                             </div>
                             <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
-                                <div class="bg-purple-400 h-full w-[74%]"></div>
+                                <div class="bg-emerald-400 h-full w-[92%]"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-slate-300">الكهرباء والفيزياء</span>
-                                <span class="text-emerald-400 font-mono font-bold">69%</span>
+                                <span class="text-slate-300">الآثار والتاريخ الإسلامي والجغرافيا</span>
+                                <span class="text-blue-400 font-mono font-bold">81%</span>
                             </div>
                             <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
-                                <div class="bg-emerald-400 h-full w-[69%]"></div>
+                                <div class="bg-blue-400 h-full w-[81%]"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-slate-300">الأدب والشعر والقانون</span>
-                                <span class="text-blue-400 font-mono font-bold">62%</span>
+                                <span class="text-slate-300">الإنترنت والطب والكيمياء والاقتصاد</span>
+                                <span class="text-purple-400 font-mono font-bold">75%</span>
                             </div>
                             <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
-                                <div class="bg-blue-400 h-full w-[62%]"></div>
+                                <div class="bg-purple-400 h-full w-[75%]"></div>
                             </div>
                         </div>
                     </div>
@@ -531,10 +541,9 @@
                         <span class="text-xs text-amber-400 font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
                             صلاحيات الإدارة الفائقة (Admin Dashboard)
                         </span>
-                        <h2 class="text-2xl font-black text-slate-100 mt-2">إدارة المشتركين، تحويلات CCP، ونزع الحسابات</h2>
+                        <h2 class="text-2xl font-black text-slate-100 mt-2">إدارة المشتركين، محاكي الـ Webhook، وتحويلات CCP</h2>
                     </div>
                     <div class="flex items-center gap-2 flex-wrap">
-                        <!-- Excel Export Feature Button -->
                         <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black text-xs px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 transition">
                             <i data-lucide="file-spread-sheet" class="w-4 h-4"></i>
                             تصدير إلى Excel (.xlsx)
@@ -544,6 +553,18 @@
                         </button>
                     </div>
                 </div>
+            </div>
+
+            <!-- Admin Sub-Navigation: Users Management vs Webhook Simulator -->
+            <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+                <button onclick="switchAdminSubTab('users')" id="adminSubBtnUsers" class="py-2 px-4 rounded-xl font-bold text-xs bg-amber-500 text-slate-950 flex items-center gap-2">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    إدارة المشتركين والحسابات
+                </button>
+                <button onclick="switchAdminSubTab('webhook')" id="adminSubBtnWebhook" class="py-2 px-4 rounded-xl font-bold text-xs text-slate-400 hover:text-slate-200 flex items-center gap-2">
+                    <i data-lucide="plug-zap" class="w-4 h-4 text-blue-400"></i>
+                    إعدادات الدفع ومحاكي الـ Webhook
+                </button>
             </div>
 
             <!-- Admin Stats Metrics Overview -->
@@ -566,8 +587,8 @@
                 </div>
             </div>
 
-            <!-- Admin Subscribers Control Table with Deletion & Detail Inspection -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl p-6">
+            <!-- SubTab 1: Users Control Table -->
+            <div id="adminUsersSubTab" class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl p-6">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
                     <h3 class="font-bold text-slate-100 text-base flex items-center gap-2">
                         <i data-lucide="users" class="text-amber-400 w-5 h-5"></i>
@@ -596,10 +617,99 @@
                     </table>
                 </div>
             </div>
+
+            <!-- SubTab 2: Chargily Pay Webhook Simulator & Sandbox -->
+            <div id="adminWebhookSubTab" class="hidden bg-slate-900 border border-blue-500/30 rounded-3xl shadow-xl p-6 blue-glow">
+                <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/40 flex items-center justify-center font-bold">
+                        <i data-lucide="plug-zap" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-slate-100 text-lg">مختبر ومحاكي الـ Webhook لـ Chargily Pay</h3>
+                        <p class="text-xs text-slate-400">محاكاة إشعارات دفع الرصيد والتأكد من استجابة النظام السحابية التلقائية لتحديث الأرصدة</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1.5">رقم هاتف الحرفي/المشارك المحاكى *</label>
+                        <select id="simulatedUserPhoneSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 outline-none focus:border-blue-400">
+                            <!-- Options injected dynamically -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1.5">المبلغ المراد محاكاته (دج) *</label>
+                        <input type="number" id="simulatedAmountInput" value="500" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-amber-400 font-mono font-bold outline-none focus:border-blue-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1.5">طريقة محاكاة التوقيع الرقمي *</label>
+                        <select id="simulatedHmacSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-emerald-400 font-bold outline-none focus:border-blue-400">
+                            <option value="valid">توقيع صحيح ومصادق (HMAC-SHA256) ✔️</option>
+                            <option value="invalid">توقيع غير ملموس (Invalid Signature)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-xs text-slate-400 mb-1.5">حمولة حدث JSON المرسلة (Webhook Payload):</label>
+                    <pre id="webhookPayloadDisplay" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-[11px] font-mono text-emerald-400 overflow-x-auto leading-relaxed">
+{
+  "id": "EVT-msd9fqyf",
+  "entity": "event",
+  "livemode": true,
+  "type": "checkout.paid",
+  "data": {
+    "id": "CHKT-718214",
+    "amount": 500,
+    "status": "paid",
+    "metadata": {
+      "userPhone": "0661234567",
+      "accountHolder": "حاكمي عبد الكريم"
+    }
+  }
+}
+                    </pre>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="triggerSimulatedWebhook()" class="flex-1 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        إرسال وتفعيل الـ Webhook تلقائياً لتحديث الأرصدة بالسحابة
+                    </button>
+                    <button onclick="generateNewWebhookPayload()" class="py-3.5 px-6 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl text-xs transition">
+                        توليد Event ID جديد
+                    </button>
+                </div>
+
+                <!-- Backend Code Snippet Preview -->
+                <div class="mt-8 border-t border-slate-800 pt-6">
+                    <h4 class="text-xs font-bold text-slate-300 mb-2 flex items-center gap-2">
+                        <i data-lucide="code" class="w-4 h-4 text-purple-400"></i>
+                        كود نقطة النهاية (Backend Django Endpoint Code Snippet)
+                    </h4>
+                    <pre class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-[10px] font-mono text-slate-400 overflow-x-auto leading-relaxed">
+# Django / Python Implementation for Chargily Webhook Validation
+import hmac, hashlib, json
+from django.http import HttpResponse
+
+def chargily_webhook(request):
+    signature = request.headers.get('signature')
+    computed = hmac.new(SECRET_KEY.encode('utf-8'), request.body, hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(signature, computed):
+        return HttpResponse(status=403)
+    event = json.loads(request.body)
+    if event['type'] == 'checkout.paid':
+        # Update user payment status in Firestore cloud
+        pass
+    return HttpResponse(status=200)
+                    </pre>
+                </div>
+            </div>
         </div>
 
     </main>
 
+    <!-- Authentication Modal -->
     <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
             <button onclick="closeAuthModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-200">
@@ -613,7 +723,7 @@
                         <i data-lucide="phone" class="w-7 h-7"></i>
                     </div>
                     <h3 class="text-xl font-black text-slate-100">التسجيل وتوثيق حساب CCP</h3>
-                    <p class="text-xs text-slate-400 mt-1">أدخل بياناتك وحسابك البريدي الجاري لاستلام الجوائز مباشرة عبر CCP</p>
+                    <p class="text-xs text-slate-400 mt-1">أدخل بياناتك وحسابك البريدي الجاري لاستلام الجوائز باسم <strong class="text-amber-300">حاكمي عبد الكريم</strong></p>
                 </div>
 
                 <div>
@@ -659,6 +769,7 @@
         </div>
     </div>
 
+    <!-- Accounts Switching Modal -->
     <div id="accountsModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
             <button onclick="closeAccountsModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-200">
@@ -690,6 +801,7 @@
         </div>
     </div>
 
+    <!-- Admin User Details Inspector Modal -->
     <div id="adminUserDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-purple-500/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative purple-glow">
             <button onclick="closeAdminUserDetailModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-200">
@@ -723,10 +835,6 @@
                     <span class="text-slate-400">أعلى نتيجة مسجلة:</span>
                     <span id="inspectUserHighScore" class="font-mono text-amber-400 font-bold">0 ن</span>
                 </div>
-                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex justify-between">
-                    <span class="text-slate-400">معدل تقييم الأمان (Anti-Bot):</span>
-                    <span id="inspectUserRiskScore" class="font-bold text-emerald-400">بشري طبيعي (100%)</span>
-                </div>
             </div>
 
             <div class="flex gap-2">
@@ -740,6 +848,7 @@
         </div>
     </div>
 
+    <!-- Admin Account Deletion Confirmation Modal -->
     <div id="adminDeleteConfirmModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-red-500/50 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative">
             <div class="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 mx-auto mb-3 flex items-center justify-center">
@@ -759,6 +868,7 @@
         </div>
     </div>
 
+    <!-- Admin Password Entry Modal -->
     <div id="adminLoginModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-purple-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-center purple-glow">
             <button onclick="closeAdminModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-200">
@@ -770,7 +880,7 @@
             </div>
 
             <h3 class="text-xl font-black text-slate-100 mb-2">دخول لوحة تحكم الإدارة (Admin)</h3>
-            <p class="text-xs text-slate-400 mb-6">أدخل كلمة المرور الخاصة بالإدارة للولوج إلى الإحصائيات وإدارة المشتركين</p>
+            <p class="text-xs text-slate-400 mb-6">أدخل كلمة المرور الخاصة بالإدارة للولوج إلى الإحصائيات وإدارة المشتركين والمحاكي</p>
 
             <form onsubmit="handleAdminLoginSubmit(event)" class="flex flex-col gap-4">
                 <div>
@@ -784,6 +894,7 @@
         </div>
     </div>
 
+    <!-- Chargily Pay & BaridiMob Payment Modal -->
     <div id="paymentModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-center">
             <button onclick="closePaymentModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-200">
@@ -795,16 +906,22 @@
             </div>
 
             <h3 class="text-xl font-black text-slate-100 mb-2">اشتراك الدورة الأسبوعية (500 دج)</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
                 ادفع قيمة 500 دج للمشاركة في سداد وعاء الجوائز الكبرى والتنافس على المراكز الـ 20 الأولى.
             </p>
 
-            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 mb-6 flex items-center justify-between text-right">
-                <div>
-                    <div class="text-xs text-slate-400">قيمة الاشتراك عبر Chargily Pay</div>
-                    <div class="text-xs text-emerald-400 font-bold mt-0.5">خصم مباشر وآمن عبر CCP / BaridiMob</div>
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 mb-4 text-right">
+                <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-800">
+                    <span class="text-xs text-slate-400">صاحب الحساب المعتمد:</span>
+                    <span class="text-xs text-amber-300 font-bold">حاكمي عبد الكريم</span>
                 </div>
-                <div class="text-xl font-black text-amber-400 font-mono">500 دج</div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-slate-400">بوابة Chargily Pay المباشرة</div>
+                        <div class="text-[10px] text-emerald-400 font-bold mt-0.5">تفعيل فوري عبر Live Mode</div>
+                    </div>
+                    <div class="text-xl font-black text-amber-400 font-mono">500 دج</div>
+                </div>
             </div>
 
             <div class="flex flex-col gap-3">
@@ -830,7 +947,7 @@
     <footer class="mt-auto border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500 z-10">
         <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div>
-                جميع الحقوق محفوظة © DINAR 2026 - منصة ألعاب المهارة والتنافس الوطنية
+                جميع الحقوق محفوظة © DINAR 2026 - المنصة الوطنية لألعاب المهارة • الحساب المعتمد: حاكمي عبد الكريم
             </div>
             <div class="flex items-center gap-4 text-slate-400">
                 <span>شروط الخدمة</span>
@@ -846,14 +963,17 @@
         import { getFirestore, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 
-        /* APP CONFIGURATION */
+        /* APP CONFIGURATION WITH UPDATED LIVE CHARGILY CREDENTIALS */
         const CONFIG = {
             APP_NAME: "DINAR - دينار",
+            ACCOUNT_HOLDER: "حاكمي عبد الكريم",
             SUBSCRIPTION_FEE: 500, /* 500 DZD */
             PRIZE_POOL_PERCENTAGE: 0.75,
             PLATFORM_PERCENTAGE: 0.25,
             CHARGILY_PAYMENT_URL: "http://pay.chargily.com/payment-links/01kw0gf98cydybfb0s1dnj6gmb",
-            CHARGILY_PUBLIC_KEY: "live_pk_G4Sc6WY30YJsR0zPtwPKzc5ZCidkvLMeLKS2VS7D",
+            CHARGILY_PUBLIC_KEY: "live_pk_pC4ZvLjEi8FIG3Ns9J4K8g4rOFy6uycttBQNQLCe",
+            CHARGILY_SECRET_KEY: "live_sk_es0gzO7LVGOYChIh0ok7o9ZYdGvuBlS1fwQGYvlq",
+            CHARGILY_WEBHOOK_URL: "https://hakmikarim.github.io/DINAR/success.html",
             ULTRAMSG_INSTANCE: "instance186581",
             ULTRAMSG_TOKEN: "ax7mhaerrvu7r64k",
             MAX_DAILY_ATTEMPTS: 3,
@@ -894,76 +1014,106 @@
             console.warn("Firebase Init fallback mode", e);
         }
 
-        /* Core Trivia Question Bank */
-        const TRIVIA_POOL = [
-            /* Astronomy & Space */
-            { cat: "فلك وعلوم الفضاء", q: "ما هو أكبر كوكب في المجموعة الشمسية؟", options: ["الأرض", "المشتري", "زحل", "المريخ"], answer: 1 },
-            { cat: "فلك وعلوم الفضاء", q: "كم يبعد الضوء في الثانية الواحدة تقريباً؟", options: ["150,000 كم", "300,000 كم", "500,000 كم", "100,000 كم"], answer: 1 },
-            { cat: "فلك وعلوم الفضاء", q: "ما هو أقرب نجم إلى كوكب الأرض بعد الشمس؟", options: ["الشعرى اليمانية", "قنطور الأقرب", "القطب الشمالي", "النسر الواقع"], answer: 1 },
+        const MASSIVE_TRIVIA_BANK = [
+            /* 1. Archaeology & Ancient Ruins (الآثار والحضارات القديمة) */
+            { id: "arch_1", cat: "الآثار والحضارات القديمة", q: "أين تقع مدينة تيمقاد الأثرية الرومانية الشامخة؟", options: ["باتنة", "سطيف", "قسنطينة", "تيبازة"], answer: 0 },
+            { id: "arch_2", cat: "الآثار والحضارات القديمة", q: "ما هي المدينة الرومانية الأثرية المعروفة باسم 'كويكول'؟", options: ["جميلة (سطيف)", "تيبازة", "تيبس", "شرشال"], answer: 0 },
+            { id: "arch_3", cat: "الآثار والحضارات القديمة", q: "أي عجيبة من عجائب العالم القديم السبعة لا تزال قائمة حتى اليوم؟", options: ["أهرامات الجيزة", "منارة الإسكندرية", "حدائق بابل", "تمثال رودس"], answer: 0 },
+            { id: "arch_4", cat: "الآثار والحضارات القديمة", q: "ما هو اسم المعلم الأثري الجنائزي المعروف بضريح إمدغاسن؟", options: ["باتنة", "تلمسان", "تيبازة", "تمنراست"], answer: 0 },
+            { id: "arch_5", cat: "الآثار والحضارات القديمة", q: "ما هي المدينة الأثرية التي ضمت مكتبة تراثية رومانية كاملة المحراب بالجزائر؟", options: ["تيمقاد", "تيبازة", "قالمة", "سوق أهراس"], answer: 0 },
 
-            /* Algerian History & Heritage */
-            { cat: "تاريخ وجغرافيا الجزائر", q: "في أي سنة استرجعت الجزائر سيادتها الوطنية؟", options: ["1954", "1962", "1960", "1965"], answer: 1 },
-            { cat: "تاريخ وجغرافيا الجزائر", q: "ما هي أكبر ولاية في الجزائر من حيث المساحة؟", options: ["أدرار", "تمنراست", "ورقلة", "إليزي"], answer: 1 },
-            { cat: "تاريخ وجغرافيا الجزائر", q: "ما هو أعلى قمة جبلية في الجزائر؟", options: ["جبل الشلية", "تاهات أتاكور", "جبل لالة خديجة", "جبل جرجرة"], answer: 1 },
-            { cat: "تاريخ وجغرافيا الجزائر", q: "أي من الشعراء التاليين هو مؤلف النشيد الوطني 'قسماً'؟", options: ["مفدي زكرياء", "محمد العيد آل خليفة", "أحمد سحنون", "أبو القاسم الشابي"], answer: 0 },
+            /* 2. Geography & World Landmarks (الجغرافيا ومعالم العالم) */
+            { id: "geo_1", cat: "الجغرافيا ومعالم العالم", q: "ما هو أطول نهر في العالم؟", options: ["نهر النيل", "نهر الأمازون", "نهر الميسيسيبي", "نهر الينغسي"], answer: 0 },
+            { id: "geo_2", cat: "الجغرافيا ومعالم العالم", q: "ما هي عاصمة دولة أستراليا؟", options: ["كانبرا", "سيدني", "ملبورن", "بريزبن"], answer: 0 },
+            { id: "geo_3", cat: "الجغرافيا ومعالم العالم", q: "ما هو أكبر محيط في الكرة الأرضية من حيث المساحة؟", options: ["المحيط الهادئ", "المحيط الأطلسي", "المحيط الهندي", "المحيط المتجمد الشمالي"], answer: 0 },
+            { id: "geo_4", cat: "الجغرافيا ومعالم العالم", q: "ما هو المضيق الذي يفصل بين المغرب وإسبانيا؟", options: ["مضيق جبل طارق", "مضيق باب المندب", "مضيق هرمز", "مضيق البسفور"], answer: 0 },
+            { id: "geo_5", cat: "الجغرافيا ومعالم العالم", q: "ما هي أطول سلسلة جبلية في العالم؟", options: ["جبال الأنديز", "جبال الهيمالايا", "جبال الألب", "جبال الأطلس"], answer: 0 },
 
-            /* Sports */
-            { cat: "رياضة عالمية", q: "أي دولة فازت بكأس العالم لكرة القدم سنة 2022؟", options: ["فرنسا", "الأرجنتين", "البرازيل", "ألمانيا"], answer: 1 },
-            { cat: "رياضة عالمية", q: "كم عدد أفراد فريق كرة السلة داخل الملعب للمباراة؟", options: ["5 لاعبين", "6 لاعبين", "7 لاعبين", "11 لاعب"], answer: 0 },
-            { cat: "رياضة عالمية", q: "في أي مدينة أقيمت الألعاب الأولمبية الصيفية لعام 2024؟", options: ["لندن", "باريس", "طوكيو", "لوس أنجلوس"], answer: 1 },
+            /* 3. Islamic History (تاريخ الإسلام والصحابة) */
+            { id: "islam_1", cat: "تاريخ الإسلام والصحابة", q: "ما هي أول غزوة خاضها المسلمون في التاريخ الإسلامي؟", options: ["غزوة الأبواء (ودان)", "غزوة بدر الكبرى", "غزوة أحد", "غزوة الخندق"], answer: 0 },
+            { id: "islam_2", cat: "تاريخ الإسلام والصحابة", q: "من هو أول خلفاء الدولة الأموية؟", options: ["معاوية بن أبي سفيان", "يزيد بن معاوية", "عبد الملك بن مروان", "عمر بن عبد العزيز"], answer: 0 },
+            { id: "islam_3", cat: "تاريخ الإسلام والصحابة", q: "ما هي السورة القارعة الملقبة بـ 'عروس القرآن'؟", options: ["سورة الرحمن", "سورة يس", "سورة الواقعة", "سورة الملك"], answer: 0 },
+            { id: "islam_4", cat: "تاريخ الإسلام والصحابة", q: "من القائل الشهير لـ 'نحن قوم أعزنا الله بالإسلام'؟", options: ["عمر بن الخطاب", "أبو بكر الصديق", "علي بن أبي طالب", "خالد بن الوليد"], answer: 0 },
 
-            /* Literature & Poetry */
-            { cat: "أدب وشعر", q: "من هو صاحب ملحمة 'إلياذة الجزائر'؟", options: ["مفدي زكرياء", "نزار قباني", "محمود درويش", "أحمد شوقي"], answer: 0 },
-            { cat: "أدب وشعر", q: "من الملقب بـ 'أمير الشعراء' في الأدب العربي الحديث؟", options: ["حافظ إبراهيم", "أحمد شوقي", "جبران خليل جبران", "المتنبي"], answer: 1 },
+            /* 4. Algerian History & Revolution & Mujahideen (تاريخ الجزائر والمجاهدين) */
+            { id: "dz_1", cat: "تاريخ الجزائر والمجاهدين", q: "في أي تاريخ انطلقت شرارة ثورة التحرير الجزائرية المظفرة؟", options: ["1 نوفمبر 1954", "5 جويلية 1962", "20 أوت 1955", "19 مارس 1962"], answer: 0 },
+            { id: "dz_2", cat: "تاريخ الجزائر والمجاهدين", q: "من هو القائد الشهيد الملقب بـ 'أسد الأوراس' ومؤسس المنطقة الأولى؟", options: ["مصطفى بن بولعيد", "العربي بن مهيدي", "ديدوش مراد", "زيغود يوسف"], answer: 0 },
+            { id: "dz_3", cat: "تاريخ الجزائر والمجاهدين", q: "أين أقيم مؤتمر الصومام التاريخي عام 1956؟", options: ["إيفري (بجاية)", "تيزي وزو", "جيجل", "البويرة"], answer: 0 },
+            { id: "dz_4", cat: "تاريخ الجزائر والمجاهدين", q: "من صاحب المقولة الخالدة: 'ألقوا بالثورة إلى الشارع سيحتضنها الشعب'؟", options: ["العربي بن مهيدي", "عبان رمضان", "عميروش", "أحمد زبانة"], answer: 0 },
+            { id: "dz_5", cat: "تاريخ الجزائر والمجاهدين", q: "من هي البطلة الشهيدة رمز معركة الجزائر العاصمة 1957؟", options: ["حسيبة بن بوعلي", "جميلة بوحيرد", "فضيلة سعدان", "وريدة مداد"], answer: 0 },
+            { id: "dz_6", cat: "تاريخ الجزائر والمجاهدين", q: "في أي سنة وقعت هجومات الشمال القسنطيني التاريخية؟", options: ["20 أوت 1955", "1 نوفمبر 1954", "8 ماي 1945", "11 ديسمبر 1960"], answer: 0 },
 
-            /* Electricity & Physics */
-            { cat: "كهرباء وفيزياء", q: "ما هي وحدة قياس شدة التيار الكهربائي؟", options: ["الفولت", "الأمبير", "الأوم", "الواط"], answer: 1 },
-            { cat: "كهرباء وفيزياء", q: "ينص قانون أوم للكهرباء على أن الجهد (V) يساوي:", options: ["V = I × R", "V = I / R", "V = I + R", "V = R / I"], answer: 0 },
+            /* 5. Economy & Business (الاقتصاد والتجارة) */
+            { id: "eco_1", cat: "الاقتصاد والتجارة", q: "ماذا يسمى الارتفاع المستمر في المستوى العام للأسعار وتراجع القدرة الشرائية؟", options: ["التضخم", "الانكماش", "الركود", "الفائدة"], answer: 0 },
+            { id: "eco_2", cat: "الاقتصاد والتجارة", q: "ما هو الاختصار الشهير للناتج المحلي الإجمالي باللغة الإنجليزية؟", options: ["GDP", "GNP", "CPI", "IMF"], answer: 0 },
+            { id: "eco_3", cat: "الاقتصاد والتجارة", q: "أين يقع مقر البنك المركزي الأوروبي (ECB)؟", options: ["فرانكفورت (ألمانيا)", "باريس", "بروكسل", "لندن"], answer: 0 },
 
-            /* Law & Philosophy */
-            { cat: "قانون ودستور", q: "ما هي السلطة المختصة بتشريع القوانين في الدولة؟", options: ["السلطة التنفيذية", "السلطة التشريعية", "السلطة القضائية", "المجلس الأعلى"], answer: 1 },
-            { cat: "فلسفة ومنطق", q: "من هو الفيلسوف الذي قال مقولته الشهيرة: 'أنا أفكر، إذن أنا موجود'؟", options: ["أرسطو", "رينيه ديكارت", "أفلاطون", "سقراط"], answer: 1 }
+            /* 6. Internet & IT & Computer Science (الإنترنت والإعلام الآلي) */
+            { id: "it_1", cat: "الإنترنت والإعلام الآلي", q: "ماذا يعني اختصار IP في شبكات الكمبيوتر والإنترنت؟", options: ["Internet Protocol", "Internal Process", "Information Page", "Interactive Program"], answer: 0 },
+            { id: "it_2", cat: "الإنترنت والإعلام الآلي", q: "ما هي لغة البرمجة الأكثر استخداماً وتفضيلاً لتطوير نماذج الذكاء الاصطناعي؟", options: ["Python", "HTML", "Pascal", "C++"], answer: 0 },
+            { id: "it_3", cat: "الإنترنت والإعلام الآلي", q: "ما هو المكون المسؤول عن معالجة البيانات والحسابات في الحاسوب (عقل الجهاز)؟", options: ["CPU (المعالج)", "RAM", "Hard Disk", "Power Supply"], answer: 0 },
+
+            /* 7. Medicine & Biology (الطب والأحياء) */
+            { id: "med_1", cat: "الطب والأحياء", q: "ما هي فصيلة الدم الملقبة بـ 'المعطي العام' لجميع الفصائل؟", options: ["O سالب (O-)", "AB موجب (AB+)", "A موجب", "B سالب"], answer: 0 },
+            { id: "med_2", cat: "الطب والأحياء", q: "ما هو أكبر عضو في جسم الإنسان من حيث المساحة والوزن؟", options: ["الجلد", "الكبد", "الرئتين", "الأمعاء الدقيقة"], answer: 0 },
+            { id: "med_3", cat: "الطب والأحياء", q: "ما هو الفيتامين الذي يتم تصنيعه في الجسم بشكل رئيسي عند التعرض لأشعة الشمس؟", options: ["فيتامين D", "فيتامين C", "فيتامين B12", "فيتامين A"], answer: 0 },
+
+            /* 8. Chemistry & Sciences (الكيمياء والعلوم) */
+            { id: "chem_1", cat: "الكيمياء والعلوم", q: "ما هو الرمز الكيميائي لعنصر الذهب في الجدول الدوري؟", options: ["Au", "Ag", "Fe", "Cu"], answer: 0 },
+            { id: "chem_2", cat: "الكيمياء والعلوم", q: "ما هو الغاز الملقب بـ 'غاز الخردل' أو الغاز المسبب للضحك؟", options: ["أكسيد النيتروز (N2O)", "ثاني أكسيد الكربون", "الميثان", "الأوزون"], answer: 0 },
+            { id: "chem_3", cat: "الكيمياء والعلوم", q: "ما هي درجة غليان الماء النقية بالدرجة المئوية تحت الضغط الجوي النظامي؟", options: ["100° مئوية", "90° مئوية", "120° مئوية", "80° مئوية"], answer: 0 },
+
+            /* 9. Astronomy & Space (فلك وعلوم الفضاء) */
+            { id: "astro_1", cat: "فلك وعلوم الفضاء", q: "ما هو أكبر كوكب في المجموعة الشمسية؟", options: ["المشتري", "زحل", "الأرض", "المريخ"], answer: 0 },
+            { id: "astro_2", cat: "فلك وعلوم الفضاء", q: "كم يبعد الضوء في الثانية الواحدة تقريباً؟", options: ["300,000 كم/ث", "150,000 كم/ث", "500,000 كم/ث", "100,000 كم/ث"], answer: 0 },
+
+            /* 10. Law & Philosophy (قانون وفلسفة) */
+            { id: "law_1", cat: "قانون وفلسفة", q: "من صاحب المقوُلة الفلسفية الشهيرة: 'أنا أفكر، إذن أنا موجود'؟", options: ["رينيه ديكارت", "أرسطو", "أفلاطون", "سقراط"], answer: 0 },
+            { id: "law_2", cat: "قانون وفلسفة", q: "ما هي السلطة المختصة بتشريع وسن القوانين في الدولة؟", options: ["السلطة التشريعية", "السلطة التنفيذية", "السلطة القضائية", "المجلس الأعلى"], answer: 0 }
         ];
 
-        /* Procedural Math, Physics & Speed Generator */
-        function generateProceduralQuestions(count = 25) {
+        function generateProceduralQuestions(count = 35) {
             const list = [];
-            const types = ['math_mult', 'electric_calc', 'math_sqrt', 'speed_logic'];
+            const types = ['math_mult', 'electric_calc', 'math_sqrt', 'speed_logic', 'chem_val', 'it_bits'];
 
             for (let i = 0; i < count; i++) {
                 const type = types[i % types.length];
+                const id = `proc_${type}_${Date.now()}_${i}`;
+
                 if (type === 'math_mult') {
-                    const a = Math.floor(Math.random() * 20) + 6;
-                    const b = Math.floor(Math.random() * 15) + 3;
+                    const a = Math.floor(Math.random() * 25) + 7;
+                    const b = Math.floor(Math.random() * 18) + 4;
                     const correct = a * b;
-                    const wrong1 = correct + 10;
-                    const wrong2 = Math.max(2, correct - 8);
-                    const wrong3 = correct + 14;
+                    const wrong1 = correct + 12;
+                    const wrong2 = Math.max(4, correct - 10);
+                    const wrong3 = correct + 18;
 
                     const opts = [correct.toString(), wrong1.toString(), wrong2.toString(), wrong3.toString()].sort(() => 0.5 - Math.random());
                     list.push({
+                        id: id,
                         cat: "رياضيات وحساب سريع",
                         q: `احسب بسرعة الناتج: ${a} × ${b} = ؟`,
                         options: opts,
                         answer: opts.indexOf(correct.toString())
                     });
                 } else if (type === 'electric_calc') {
-                    const iVal = Math.floor(Math.random() * 10) + 2;
-                    const rVal = Math.floor(Math.random() * 20) + 5;
+                    const iVal = Math.floor(Math.random() * 12) + 2;
+                    const rVal = Math.floor(Math.random() * 25) + 5;
                     const correctV = iVal * rVal;
-                    const wrong1 = correctV + 5;
-                    const wrong2 = correctV - 4;
-                    const wrong3 = correctV + 12;
+                    const wrong1 = correctV + 6;
+                    const wrong2 = Math.max(1, correctV - 5);
+                    const wrong3 = correctV + 14;
 
                     const opts = [`${correctV} فولت`, `${wrong1} فولت`, `${wrong2} فولت`, `${wrong3} فولت`].sort(() => 0.5 - Math.random());
                     list.push({
+                        id: id,
                         cat: "كهرباء وفيزياء",
-                        q: `تيار شدته ${iVal} أمبير يمر في المقاومة ${rVal} أوم. احسب الجهد V ؟`,
+                        q: `تيار شدته ${iVal} أمبير يمر في مقاومة ${rVal} أوم. احسب الجهد V ؟`,
                         options: opts,
                         answer: opts.indexOf(`${correctV} فولت`)
                     });
                 } else if (type === 'math_sqrt') {
-                    const bases = [7, 8, 9, 11, 12, 13, 14, 15];
+                    const bases = [7, 8, 9, 11, 12, 13, 14, 15, 16, 17];
                     const base = bases[Math.floor(Math.random() * bases.length)];
                     const square = base * base;
                     const wrong1 = base + 1;
@@ -972,16 +1122,55 @@
 
                     const opts = [base.toString(), wrong1.toString(), wrong2.toString(), wrong3.toString()].sort(() => 0.5 - Math.random());
                     list.push({
+                        id: id,
                         cat: "رياضيات وحساب سريع",
-                        q: `ما هو الجذر التربيعي للعدد: √${square} ؟`,
+                        q: `ما هو الجذر التربيعي المباشر للعدد: √${square} ؟`,
                         options: opts,
                         answer: opts.indexOf(base.toString())
                     });
+                } else if (type === 'chem_val') {
+                    const atomicNums = [
+                        { name: "الهيدروجين (H)", num: 1 },
+                        { name: "الهيليوم (He)", num: 2 },
+                        { name: "الكربون (C)", num: 6 },
+                        { name: "الأكسجين (O)", num: 8 },
+                        { name: "الصوديوم (Na)", num: 11 }
+                    ];
+                    const item = atomicNums[Math.floor(Math.random() * atomicNums.length)];
+                    const wrong1 = item.num + 2;
+                    const wrong2 = Math.max(1, item.num - 1);
+                    const wrong3 = item.num + 4;
+
+                    const opts = [item.num.toString(), wrong1.toString(), wrong2.toString(), wrong3.toString()].sort(() => 0.5 - Math.random());
+                    list.push({
+                        id: id,
+                        cat: "كيمياء وعلوم",
+                        q: `ما هو العدد الذري لعنصر ${item.name} في الجدول الدوري؟`,
+                        options: opts,
+                        answer: opts.indexOf(item.num.toString())
+                    });
+                } else if (type === 'it_bits') {
+                    const bytes = [2, 4, 8, 16, 32];
+                    const chosen = bytes[Math.floor(Math.random() * bytes.length)];
+                    const bits = chosen * 8;
+                    const wrong1 = bits + 8;
+                    const wrong2 = bits - 4;
+                    const wrong3 = bits + 16;
+
+                    const opts = [`${bits} بت`, `${wrong1} بت`, `${wrong2} بت`, `${wrong3} بت`].sort(() => 0.5 - Math.random());
+                    list.push({
+                        id: id,
+                        cat: "إنترنت وإعلام آلي",
+                        q: `كم عدد البتات (Bits) في سعة قدرها ${chosen} بايت (Bytes)؟`,
+                        options: opts,
+                        answer: opts.indexOf(`${bits} بت`)
+                    });
                 } else {
-                    const num = (Math.floor(Math.random() * 40) + 10) * 2;
+                    const num = (Math.floor(Math.random() * 50) + 10) * 2;
                     const half = num / 2;
                     const opts = [half.toString(), (half + 5).toString(), (half - 4).toString(), (half + 10).toString()].sort(() => 0.5 - Math.random());
                     list.push({
+                        id: id,
                         cat: "رياضيات وحساب سريع",
                         q: `ما هو نصف العدد: ${num} ؟`,
                         options: opts,
@@ -1049,11 +1238,44 @@
 
         window.currentUser = JSON.parse(localStorage.getItem('dinar_user_500')) || window.allRegisteredUsers[0] || null;
         window.totalSubscribers = 1840;
-        window.todayAttempts = parseInt(localStorage.getItem('dinar_attempts_500') || '0', 10);
         window.soundEnabled = true;
         window.isAdminLoggedIn = false;
         window.pendingDeleteUserId = null;
         window.inspectingUserId = null;
+
+        /* PER-USER USED QUESTIONS MEMORY TRACKER (Never Repeat Questions) */
+        window.getUsedQuestionsList = function(userId) {
+            if (!userId) return [];
+            const key = `dinar_used_q_${userId}`;
+            return JSON.parse(localStorage.getItem(key) || '[]');
+        };
+
+        window.markQuestionAsUsed = function(userId, qId) {
+            if (!userId || !qId) return;
+            const key = `dinar_used_q_${userId}`;
+            const current = window.getUsedQuestionsList(userId);
+            if (!current.includes(qId)) {
+                current.push(qId);
+                localStorage.setItem(key, JSON.stringify(current));
+            }
+        };
+
+        /* PER-USER ATTEMPTS TRACKING HELPERS */
+        window.getUserAttempts = function(userId) {
+            if (!userId) return 0;
+            const todayStr = new Date().toISOString().split('T')[0];
+            const key = `dinar_attempts_500_${userId}_${todayStr}`;
+            return parseInt(localStorage.getItem(key) || '0', 10);
+        };
+
+        window.incrementUserAttempts = function(userId) {
+            if (!userId) return 1;
+            const todayStr = new Date().toISOString().split('T')[0];
+            const key = `dinar_attempts_500_${userId}_${todayStr}`;
+            const current = window.getUserAttempts(userId) + 1;
+            localStorage.setItem(key, current.toString());
+            return current;
+        };
 
         let gameQuestions = [];
         let currentQuestionIdx = 0;
@@ -1066,7 +1288,6 @@
         let selectedAnswer = null;
         let generatedOtpCode = '';
 
-        /* DOM UI Helpers */
         window.showToast = function(msg) {
             const toast = document.getElementById('customToast');
             const msgEl = document.getElementById('toastMessage');
@@ -1080,11 +1301,13 @@
             const poolTotal = window.totalSubscribers * CONFIG.SUBSCRIPTION_FEE * CONFIG.PRIZE_POOL_PERCENTAGE;
             const platformTotal = window.totalSubscribers * CONFIG.SUBSCRIPTION_FEE * CONFIG.PLATFORM_PERCENTAGE;
 
+            const userAttempts = window.currentUser ? window.getUserAttempts(window.currentUser.id) : 0;
+
             document.getElementById('totalSubsDisplay').innerText = window.totalSubscribers.toLocaleString();
             document.getElementById('prizePoolDisplay').innerText = `${poolTotal.toLocaleString()} دج`;
             document.getElementById('prizeTotalDisplay').innerText = poolTotal.toLocaleString();
             document.getElementById('platformTotalDisplay').innerText = platformTotal.toLocaleString();
-            document.getElementById('attemptsDisplay').innerText = `${CONFIG.MAX_DAILY_ATTEMPTS - window.todayAttempts} من ${CONFIG.MAX_DAILY_ATTEMPTS}`;
+            document.getElementById('attemptsDisplay').innerText = `${CONFIG.MAX_DAILY_ATTEMPTS - userAttempts} من ${CONFIG.MAX_DAILY_ATTEMPTS}`;
 
             renderPrizeCards(poolTotal);
 
@@ -1174,6 +1397,7 @@
                 runAiAnalytics();
             } else if (tabName === 'adminPanel') {
                 renderAdminUsersTable();
+                populateSimulatedUsersDropdown();
             }
 
             lucide.createIcons();
@@ -1260,7 +1484,7 @@
 
             document.getElementById('authPhoneForm').classList.add('hidden');
             document.getElementById('authOtpForm').classList.remove('hidden');
-            document.getElementById('otpStatusNotice').innerText = `رمز التحقق التجريبي الخاص بك هو: ${generatedOtpCode}`;
+            document.getElementById('otpStatusNotice').innerText = `رمز التحقق الخاص بك هو: ${generatedOtpCode}`;
 
             window.currentUserTemp = {
                 id: 'usr_' + Date.now(),
@@ -1281,7 +1505,6 @@
                 window.currentUser = window.currentUserTemp;
                 localStorage.setItem('dinar_user_500', JSON.stringify(window.currentUser));
 
-                /* Add to local tracking list */
                 window.allRegisteredUsers.unshift(window.currentUser);
                 window.saveUsersStore();
 
@@ -1304,7 +1527,7 @@
 
         window.simulatePaymentVerification = function() {
             const btn = document.getElementById('confirmPayBtn');
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> جاري تأكيد الشحن بـ 500 دج...`;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> جاري تأكيد الشحن بـ 500 دج لـ حاكمي عبد الكريم...`;
             lucide.createIcons();
 
             setTimeout(() => {
@@ -1326,8 +1549,12 @@
                 btn.innerHTML = `<i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> تأكيد إتمام عملية الدفع والتفعيل الآن`;
                 lucide.createIcons();
                 window.playAudioSynth('correct');
-                window.showToast("تم تفعيل اشتراكك بنجاح بـ 500 دج!");
-            }, 1600);
+                window.showToast("تم تفعيل اشتراكك بنجاح! جاري إطلاق التحدي المباشر...");
+
+                setTimeout(() => {
+                    window.handleStartQuiz();
+                }, 500);
+            }, 1200);
         };
 
         window.handleStartQuiz = function() {
@@ -1339,13 +1566,33 @@
                 window.openPaymentModal();
                 return;
             }
-            if (window.todayAttempts >= CONFIG.MAX_DAILY_ATTEMPTS) {
-                window.showToast("استنفذت محاولاتك اليومية الثلاث! عد غداً للمزيد من الفرص.");
+
+            const attemptsUsed = window.getUserAttempts(window.currentUser.id);
+            if (attemptsUsed >= CONFIG.MAX_DAILY_ATTEMPTS) {
+                window.showToast("استنفذت محاولاتك اليومية الثلاث لهذا اليوم! عد غداً للمزيد من الفرص.");
                 return;
             }
 
-            const procQuestions = generateProceduralQuestions(15);
-            gameQuestions = [...TRIVIA_POOL, ...procQuestions].sort(() => 0.5 - Math.random()).slice(0, 10);
+            window.switchTab('quiz');
+
+            // Exclude already answered/presented questions for this user
+            const usedList = window.getUsedQuestionsList(window.currentUser.id);
+            const procedural = generateProceduralQuestions(40);
+            const fullPool = [...MASSIVE_TRIVIA_BANK, ...procedural];
+
+            let available = fullPool.filter(q => !usedList.includes(q.id));
+
+            // If user exhausted all questions, reset memory pool
+            if (available.length < 10) {
+                localStorage.removeItem(`dinar_used_q_${window.currentUser.id}`);
+                available = fullPool;
+            }
+
+            gameQuestions = available.sort(() => 0.5 - Math.random()).slice(0, 10);
+            
+            // Mark chosen questions as used
+            gameQuestions.forEach(q => window.markQuestionAsUsed(window.currentUser.id, q.id));
+
             currentQuestionIdx = 0;
             score = 0;
             speedBonusTotal = 0;
@@ -1356,8 +1603,7 @@
             document.getElementById('quizFinishedState').classList.add('hidden');
             document.getElementById('quizPlayState').classList.remove('hidden');
 
-            window.todayAttempts += 1;
-            localStorage.setItem('dinar_attempts_500', window.todayAttempts.toString());
+            window.incrementUserAttempts(window.currentUser.id);
             window.updateStatsUI();
 
             loadQuestion();
@@ -1512,7 +1758,7 @@
                 window.closeAdminModal();
                 document.getElementById('tabBtnAdminPanel').classList.remove('hidden');
                 window.switchTab('adminPanel');
-                window.showToast("مرحباً بك في لوحة تحكم الأدمن!");
+                window.showToast("مرحباً بك في لوحة تحكم الأدمن ومحاكي الـ Webhook!");
             } else {
                 window.showToast("كلمة المرور غير صحيحة!");
             }
@@ -1523,6 +1769,97 @@
             document.getElementById('tabBtnAdminPanel').classList.add('hidden');
             window.switchTab('quiz');
             window.showToast("تم قفل لوحة الأدمن.");
+        };
+
+        window.switchAdminSubTab = function(subTab) {
+            const usersTab = document.getElementById('adminUsersSubTab');
+            const webhookTab = document.getElementById('adminWebhookSubTab');
+            const btnUsers = document.getElementById('adminSubBtnUsers');
+            const btnWebhook = document.getElementById('adminSubBtnWebhook');
+
+            if (subTab === 'users') {
+                usersTab.classList.remove('hidden');
+                webhookTab.classList.add('hidden');
+                btnUsers.className = 'py-2 px-4 rounded-xl font-bold text-xs bg-amber-500 text-slate-950 flex items-center gap-2';
+                btnWebhook.className = 'py-2 px-4 rounded-xl font-bold text-xs text-slate-400 hover:text-slate-200 flex items-center gap-2';
+            } else {
+                usersTab.classList.add('hidden');
+                webhookTab.classList.remove('hidden');
+                btnUsers.className = 'py-2 px-4 rounded-xl font-bold text-xs text-slate-400 hover:text-slate-200 flex items-center gap-2';
+                btnWebhook.className = 'py-2 px-4 rounded-xl font-bold text-xs bg-blue-500 text-slate-950 flex items-center gap-2';
+                populateSimulatedUsersDropdown();
+            }
+            lucide.createIcons();
+        };
+
+        function populateSimulatedUsersDropdown() {
+            const dropdown = document.getElementById('simulatedUserPhoneSelect');
+            if (!dropdown) return;
+
+            dropdown.innerHTML = window.allRegisteredUsers.map(u => `
+                <option value="${u.phone}">${u.name} (${u.phone}) - CCP: ${u.ccp}</option>
+            `).join('');
+        }
+
+        window.generateNewWebhookPayload = function() {
+            const randomEvt = 'EVT-' + Math.random().toString(36).substring(2, 10);
+            const randomChkt = 'CHKT-' + Math.floor(100000 + Math.random() * 900000);
+            const phone = document.getElementById('simulatedUserPhoneSelect')?.value || '0661234567';
+            const amount = parseInt(document.getElementById('simulatedAmountInput')?.value || '500', 10);
+
+            const payloadObj = {
+                id: randomEvt,
+                entity: "event",
+                livemode: true,
+                type: "checkout.paid",
+                data: {
+                    id: randomChkt,
+                    entity: "checkout",
+                    fees: Math.round(amount * 0.015),
+                    amount: amount,
+                    locale: "ar",
+                    status: "paid",
+                    metadata: {
+                        userPhone: phone,
+                        accountHolder: CONFIG.ACCOUNT_HOLDER
+                    },
+                    created_at: Math.floor(Date.now() / 1000),
+                    updated_at: Math.floor(Date.now() / 1000)
+                }
+            };
+
+            const display = document.getElementById('webhookPayloadDisplay');
+            if (display) display.innerText = JSON.stringify(payloadObj, null, 2);
+            return payloadObj;
+        };
+
+        window.triggerSimulatedWebhook = function() {
+            const payload = window.generateNewWebhookPayload();
+            const hmacType = document.getElementById('simulatedHmacSelect')?.value;
+
+            if (hmacType === 'invalid') {
+                window.showToast("خطأ 403: فشل التحقق من توقيع HMAC-SHA256 الـ Webhook!");
+                return;
+            }
+
+            const targetPhone = payload.data.metadata.userPhone;
+            const targetUser = window.allRegisteredUsers.find(u => u.phone === targetPhone);
+
+            if (targetUser) {
+                targetUser.isPaid = true;
+                window.saveUsersStore();
+
+                if (window.currentUser && window.currentUser.id === targetUser.id) {
+                    window.currentUser.isPaid = true;
+                    window.renderHeaderUser();
+                }
+
+                renderAdminUsersTable();
+                window.updateStatsUI();
+                window.showToast(`تم استقبال إشعار Webhook بنجاح! تم تفعيل الاشتراك بـ ${payload.data.amount} دج للمواطن: ${targetUser.name}`);
+            } else {
+                window.showToast("تم استقبال الـ Webhook بنجاح في السحابة!");
+            }
         };
 
         function renderAdminUsersTable() {
@@ -1660,7 +1997,6 @@
                     XLSX.writeFile(workbook, "DINAR_Subscribers_List_2026.xlsx");
                     window.showToast("تم تحميل ملف الأكسل (XLSX) بنجاح!");
                 } else {
-                    /* Fallback to UTF-8 CSV with Excel BOM */
                     let csvContent = "\uFEFFالرقم,الاسم الكامل,رقم الهاتف,حساب CCP,الحالة,أعلى نتيجة,تاريخ التسجيل\n";
                     dataToExport.forEach(row => {
                         csvContent += `"${row.ID}","${row["الاسم الكامل"]}","${row["رقم الهاتف"]}","${row["حساب CCP / RIP"]}","${row["حالة الدفع (500 دج)"]}",${row["أعلى نتيجة (النقاط)"]},"${row["تاريخ التسجيل"]}"\n`;
